@@ -1,0 +1,12 @@
+#define LABEL_BUILDING              0x800000
+#define LABEL_CAR                   0x400080
+#define LABEL_TREE                  0x808000
+#define LABEL_PEDASTRAIN            0x404000
+#define LABEL_ROAD_CAR              0x804080
+#define LABEL_ROAD_PEDASTRAIN       0x3c28de
+#define LABEL_SIGN                  0xc08080
+#define LABEL_CURB                  0x404080
+#define LABEL_SKY                   0x808080
+#define LABEL_ROAD_SIGN             0xff4500
+#define LABEL_SIGNAL                0x0080c0
+#define LABEL_COLUMN             	0xc0c080
