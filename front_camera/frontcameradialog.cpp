@@ -14,8 +14,9 @@
  void CImage_Thread::Image_Capture(cv::Mat &_img){
 
      if(m_capture_mode == 1){
-        (*mp_video) >> _img;
+//        (*mp_video) >> _img;
          //cv::waitKey(80);
+
      }
 
      if(m_capture_mode == 2){
@@ -30,6 +31,9 @@
      if(m_capture_mode == 4){
          std::string current_locale_text = m_img_path.toLocal8Bit().constData();
         _img = cv::imread(current_locale_text);
+     }
+     if(m_capture_mode == 5){
+         m_log_play_lcm.LCM_Log_Subscribe(m_lcm_log_path,_img);
      }
 
  }
@@ -46,9 +50,13 @@ void CImage_Thread::Set_Image_Capture_Mode(unsigned int _capture_mode,unsigned i
     else if((_capture_mode == 4))
         m_img_path = _path;
 
+    else if((_capture_mode == 5))
+        m_lcm_log_path = _path;
+
     else{
         m_img_path = "Not Selected";
         m_avi_path = "Not Selected";
+        m_lcm_log_path = "Not Selected";
     }
 
 }
@@ -200,10 +208,14 @@ void FRONT_CAMERA::Click_Start_Button(){
             m_capture_mode = 3;
             ed_image_source->setText("Image From Webcam");
         }
-
         if(rd_input_mode_img->isChecked()){
             m_capture_mode = 4;
             ed_image_source->setText("Image From image");
+        }
+
+        if(rd_input_mode_lcm_log_play->isChecked()){
+            m_capture_mode = 5;
+            ed_image_source->setText("Image From LCM Log");
         }
 
         if(ck_savemode_org->isChecked()){
@@ -234,6 +246,14 @@ void FRONT_CAMERA::Click_Start_Button(){
 
             return;
         }
+        else if (m_capture_mode == 5){
+            if(m_str_lcm_log_path == " "){
+                QMessageBox::information(this, tr("LCM Log Load Warning"), tr("Cannot load LCM log File"));
+                return;
+            }
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_lcm_log_path);
+        }
+
         else{
             QString tmp_str = "Not Selected";
             emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, tmp_str);
@@ -405,7 +425,13 @@ void FRONT_CAMERA::File_Dialog(){
 
     QFileDialog dialog(this);
     QStringList fileName;
-    dialog.setFileMode(QFileDialog::AnyFile);
+    if(rd_input_mode_loc->isChecked() || rd_input_mode_img->isChecked())
+        dialog.setFileMode(QFileDialog::AnyFile);
+    else if(rd_input_mode_lcm_log_play->isChecked())
+        dialog.setFileMode(QFileDialog::DirectoryOnly);
+    else
+        return;
+
     dialog.setOption(QFileDialog::ShowDirsOnly);
     //dialog.show();
     if(dialog.exec())
@@ -417,6 +443,8 @@ void FRONT_CAMERA::File_Dialog(){
         m_str_avi_path = fileName[0];
     else if(rd_input_mode_img->isChecked())
         m_str_img_path = fileName[0];
+    else if(rd_input_mode_lcm_log_play->isChecked())
+        m_str_lcm_log_path = fileName[0];
 
     fileName[0];
     return;

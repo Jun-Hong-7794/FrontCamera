@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>889</width>
-    <height>829</height>
+    <height>853</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,7 +55,7 @@
      <x>40</x>
      <y>700</y>
      <width>311</width>
-     <height>61</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="title">
@@ -119,16 +119,30 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QRadioButton" name="rd_input_mode_lcm_log_play">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>LCM Log Play</string>
+    </property>
+   </widget>
    <zorder>rd_input_mode_net</zorder>
    <zorder>rd_input_mode_loc</zorder>
    <zorder>rd_input_mode_usb</zorder>
    <zorder>rd_input_mode_img</zorder>
+   <zorder>rd_input_mode_lcm_log_play</zorder>
   </widget>
   <widget class="QPushButton" name="bt_start_stop">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>780</y>
+     <y>800</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -196,7 +210,7 @@
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>780</y>
+     <y>800</y>
      <width>211</width>
      <height>41</height>
     </rect>
@@ -209,7 +223,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>760</y>
+     <y>780</y>
      <width>1031</width>
      <height>16</height>
     </rect>
@@ -289,7 +303,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>

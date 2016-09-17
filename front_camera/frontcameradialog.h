@@ -54,8 +54,13 @@ private://Dialog
 
     QString m_avi_path;
     QString m_img_path;
+    QString m_lcm_log_path;
+
 public://Dialog
     void Set_Segment_Flag(bool);
+
+private://LCM
+    CLCM m_log_play_lcm;
 
 private://OpenCv
     cv::Mat m_orgimg;
@@ -129,6 +134,7 @@ private://Dialog
 private:
     QString m_str_avi_path;
     QString m_str_img_path;
+    QString m_str_lcm_log_path;
 
 private://Opencv
     cv::Mat m_orgimg;

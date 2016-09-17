@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#include <QString>
+
 #include <lcm/lcm-cpp.hpp>
 #include "eurecar/vision_lane.hpp"
 #include "eurecar/vision_front_cam.hpp"
@@ -41,7 +43,6 @@ private:
     cv::String m_log_image_dir;
 
     lcm::LCM m_log_play_lcm;
-
     Log_Handler m_log_handler_obj;
 
 public:
@@ -52,7 +53,7 @@ public:
     void LCM_Publish(eurecar::vision_front_cam _front_cam_rst);
 
     void LCM_Subscribe();
-    void LCM_Log_Subscribe(cv::Mat&);
+    void LCM_Log_Subscribe(QString _path,cv::Mat &_img);
 
 
 };
