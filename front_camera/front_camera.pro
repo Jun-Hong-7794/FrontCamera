@@ -24,6 +24,8 @@ LIBS += -L/usr/lib/x86_64-linux-gnu
 LIBS += -lboost_system
 LIBS += -lglog
 
+LIBS += -llcm
+
 TARGET = front_camera
 CONFIG += console
 CONFIG -= app_bundle
@@ -36,7 +38,8 @@ SOURCES += main.cpp \
     csocket.cpp \
     CLabel/CLabel.cpp \
     CMission/CMission.cpp \
-    CImage_Thread/CImage_Thread.cpp
+    CImage_Thread/CImage_Thread.cpp \
+    CLCM/CLCM.cpp
 
 FORMS += \
     front_camera_detection.ui
@@ -49,6 +52,9 @@ HEADERS += \
     CLabel/Label_Def.h \
     CMission/CMission.h \
     CImage_Thread/CImage_Thread.h \
+    CLCM/CLCM.h \
+    eurecar/vision_front_cam.hpp \
+    eurecar/vision_lane.hpp
 
 DISTFILES +=
 
