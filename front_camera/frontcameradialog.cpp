@@ -16,7 +16,6 @@
      if(m_capture_mode == 1){
 //        (*mp_video) >> _img;
          //cv::waitKey(80);
-
      }
 
      if(m_capture_mode == 2){
@@ -133,9 +132,13 @@ void CImage_Thread::run(){
 
             if((m_capture_mode == 4))
                 break;
+
+            msleep(5);
         }
-        else
+        else{
+            msleep(5);
             continue;
+        }
     }
 }
 
@@ -164,6 +167,7 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
 
     m_str_avi_path = " ";
     m_str_img_path = " ";
+    m_str_lcm_log_path = " ";
 
     mp_segnet = new Classifier_segnet(m_model_file,m_weight_file);
 
@@ -198,65 +202,66 @@ void FRONT_CAMERA::Click_Start_Button(){
 
         if(rd_input_mode_net->isChecked()){
             m_capture_mode = 1;
+
             ed_image_source->setText("Image From Network");
+            mp_img_thread->Set_Segment_Flag(true);
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, " " );
         }
         if(rd_input_mode_loc->isChecked()){
             m_capture_mode = 2;
+
+            if(m_str_avi_path == " "){
+                QMessageBox::information(this, tr("Avi Load Warning"), tr("Cannot load Avi File"));
+                return;
+            }
+
             ed_image_source->setText("Image From Avi");
+            mp_img_thread->Set_Segment_Flag(true);
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, " " );
         }
         if(rd_input_mode_usb->isChecked()){
             m_capture_mode = 3;
+
             ed_image_source->setText("Image From Webcam");
+            mp_img_thread->Set_Segment_Flag(true);
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_avi_path);
         }
         if(rd_input_mode_img->isChecked()){
             m_capture_mode = 4;
-            ed_image_source->setText("Image From image");
-        }
 
+            if(m_str_img_path == " "){
+                QMessageBox::information(this, tr("Image Load Warning"), tr("Cannot load Image File"));
+                return;
+            }
+
+            ed_image_source->setText("Image From image");
+            mp_img_thread->Start_Img_Thread();
+
+            mp_img_thread->Set_Segment_Flag(true);
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_img_path);
+            mp_img_thread->start();
+
+            return;
+        }
         if(rd_input_mode_lcm_log_play->isChecked()){
             m_capture_mode = 5;
+
+            if(m_str_lcm_log_path == " "){
+                QMessageBox::information(this, tr("LCM Log Load Warning"), tr("Cannot load LCM log File"));
+                return;
+            }
+
             ed_image_source->setText("Image From LCM Log");
+            mp_img_thread->Set_Segment_Flag(true);
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_lcm_log_path);
         }
+
 
         if(ck_savemode_org->isChecked()){
             m_save_mode |= 0x01;
         }
         if(ck_savemode_out->isChecked()){
             m_save_mode |= 0x10;
-        }
-
-        if(m_capture_mode == 2){
-
-            if(m_str_avi_path == " "){
-                QMessageBox::information(this, tr("Avi Load Warning"), tr("Cannot load Avi File"));
-                return;
-            }
-            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_avi_path);
-        }
-        else if(m_capture_mode == 4){
-
-            if(m_str_img_path == " "){
-                QMessageBox::information(this, tr("Image Load Warning"), tr("Cannot load Image File"));
-                return;
-            }
-            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_img_path);
-
-            mp_img_thread->Start_Img_Thread();
-            mp_img_thread->start();
-
-            return;
-        }
-        else if (m_capture_mode == 5){
-            if(m_str_lcm_log_path == " "){
-                QMessageBox::information(this, tr("LCM Log Load Warning"), tr("Cannot load LCM log File"));
-                return;
-            }
-            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_lcm_log_path);
-        }
-
-        else{
-            QString tmp_str = "Not Selected";
-            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, tmp_str);
         }
 
         bt_start_stop->setText("Stop Button");
@@ -269,6 +274,7 @@ void FRONT_CAMERA::Click_Start_Button(){
         rd_input_mode_loc->setEnabled(false);
         rd_input_mode_usb->setEnabled(false);
         rd_input_mode_img->setEnabled(false);
+        rd_input_mode_lcm_log_play->setEnabled(false);
 
         ck_savemode_org->setEnabled(false);
         ck_savemode_out->setEnabled(false);
@@ -288,6 +294,7 @@ void FRONT_CAMERA::Click_Start_Button(){
         rd_input_mode_loc->setEnabled(true);
         rd_input_mode_usb->setEnabled(true);
         rd_input_mode_img->setEnabled(true);
+        rd_input_mode_lcm_log_play->setEnabled(true);
 
         ck_savemode_org->setEnabled(true);
         ck_savemode_out->setEnabled(true);
@@ -446,6 +453,5 @@ void FRONT_CAMERA::File_Dialog(){
     else if(rd_input_mode_lcm_log_play->isChecked())
         m_str_lcm_log_path = fileName[0];
 
-    fileName[0];
     return;
 }

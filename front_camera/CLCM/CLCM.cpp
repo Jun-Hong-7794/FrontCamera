@@ -39,5 +39,7 @@ void CLCM::LCM_Log_Subscribe(QString _path, cv::Mat &_img){
     std::string current_locale_text = _path.toLocal8Bit().constData();
    _img = cv::imread(current_locale_text);
 
+//   cv::imshow("LCM log image",_img);
+//   cv::waitKey(10);
     return;
 }
