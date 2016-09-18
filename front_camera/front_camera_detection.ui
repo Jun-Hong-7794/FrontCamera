@@ -270,19 +270,6 @@
    <property name="title">
     <string>Traffic Signal</string>
    </property>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>131</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Traffic Signal ROI</string>
-    </property>
-   </widget>
    <widget class="QGraphicsView" name="signal_view">
     <property name="geometry">
      <rect>
@@ -303,11 +290,37 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>30</y>
+      <width>226</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Traffic Signal ROI</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="ck_traffic_img_log">
+       <property name="text">
+        <string>Image Log</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>121</y>
       <width>195</width>
       <height>29</height>
      </rect>
@@ -335,7 +348,7 @@
     <rect>
      <x>630</x>
      <y>230</y>
-     <width>221</width>
+     <width>231</width>
      <height>161</height>
     </rect>
    </property>
@@ -365,18 +378,31 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>131</width>
-      <height>17</height>
+      <width>214</width>
+      <height>24</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Traffic Sign ROI</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Traffic Sign ROI</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="ck_sign_img_log">
+       <property name="text">
+        <string>Image Log</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_4">
@@ -399,19 +425,6 @@
       <width>121</width>
       <height>221</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>131</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Pedestrain ROI</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_3">
@@ -439,6 +452,32 @@
     <property name="text">
      <string>Position</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>211</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Pedestrain ROI</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="ck_pedestrian_img_log">
+       <property name="text">
+        <string>Image Log</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_5">
@@ -492,6 +531,28 @@
      <string>Pedestrian</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>2</width>
+     <height>2</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>2</width>
+     <height>2</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_5"/>
   </widget>
  </widget>
  <resources/>

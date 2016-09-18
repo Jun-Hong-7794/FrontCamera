@@ -38,6 +38,15 @@
 ///////////////////LCM////////////////////////
 #include "CLCM/CLCM.h"
 
+/////////////////////////////////////////////////
+///////////////////Save Image////////////////////////
+#include "CSaveImg/CSaveImg.h"
+
+#define SAVE_MODE_ORIGINAL              0x000001
+#define SAVE_MODE_SEGMENT               0x000010
+#define SAVE_MODE_TRAFFIC_SIGNAL        0x000100
+#define SAVE_MODE_SIGN                  0x001000
+#define SAVE_MODE_PEDESTRIAN            0x010000
 
 class CImage_Thread : public QThread{
     Q_OBJECT
@@ -151,6 +160,13 @@ private://Caffe
     string m_model_file;
     string m_weight_file;
 
+private:
+    CSaveImg m_save_org_image;//original image
+    CSaveImg m_save_seg_image;//segment image
+    CSaveImg m_save_trf_image;//traffic signal image
+    CSaveImg m_save_sig_image;//sign image
+    CSaveImg m_save_ped_image;//pedestrian image
+
 private slots:
     void Click_Start_Button();
     void File_Dialog();
@@ -159,6 +175,7 @@ public slots:
     void Set_Image(cv::Mat);
 public:
     void Mission();
+    void Save_Image();
 public:
     cv::Mat Image_Segment(cv::Mat);
     void Display_Image(cv::Mat,QGraphicsScene*,QGraphicsView*);

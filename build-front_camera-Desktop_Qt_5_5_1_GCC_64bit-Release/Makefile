@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = front_camera1.0.0
-DISTDIR = /home/jun/Workspace/Qt\ Source/Front\ Camera/build-front_camera-Desktop_Qt_5_5_1_GCC_64bit-Release/.tmp/front_camera1.0.0
+DISTDIR = /home/jun/Workspace/Git/Front\ Camera/build-front_camera-Desktop_Qt_5_5_1_GCC_64bit-Release/.tmp/front_camera1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/jun/Qt5.5.1/5.5/gcc_64 -Wl,-rpath,/home/jun/Qt5.5.1/5.5/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/usr/local/lib -lopencv_core -lopencv_videoio -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5 -L/home/jun/caffe-segnet/build/lib -lcaffe -L/usr/lib/x86_64-linux-gnu -lboost_system -lglog -L/home/jun/Qt5.5.1/5.5/gcc_64/lib -lQt5Widgets -L/usr/lib64 -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/local/lib -lopencv_core -lopencv_videoio -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5 -L/home/jun/caffe-segnet/build/lib -lcaffe -L/usr/lib/x86_64-linux-gnu -lboost_system -lglog -llcm -L/home/jun/Qt5.5.1/5.5/gcc_64/lib -lQt5Widgets -L/usr/lib64 -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -51,13 +51,23 @@ OBJECTS_DIR   = ./
 SOURCES       = ../front_camera/main.cpp \
 		../front_camera/classification.cpp \
 		../front_camera/frontcameradialog.cpp \
-		../front_camera/csocket.cpp \
-		../front_camera/CLabel/CLabel.cpp moc_frontcameradialog.cpp
+		../front_camera/CLabel/CLabel.cpp \
+		../front_camera/CMission/CMission.cpp \
+		../front_camera/CImage_Thread/CImage_Thread.cpp \
+		../front_camera/CLCM/CLCM.cpp \
+		../front_camera/CNetImg/CNetImg.cpp \
+		../front_camera/CNetImg/csocket.cpp \
+		../front_camera/CSaveImg/CSaveImg.cpp moc_frontcameradialog.cpp
 OBJECTS       = main.o \
 		classification.o \
 		frontcameradialog.o \
-		csocket.o \
 		CLabel.o \
+		CMission.o \
+		CImage_Thread.o \
+		CLCM.o \
+		CNetImg.o \
+		csocket.o \
+		CSaveImg.o \
 		moc_frontcameradialog.o
 DIST          = ../../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/unix.conf \
@@ -195,13 +205,25 @@ DIST          = ../../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/lex.prf \
 		../front_camera/front_camera.pro ../front_camera/classification.hpp \
 		../front_camera/frontcameradialog.h \
-		../front_camera/csocket.h \
 		../front_camera/CLabel/CLabel.h \
-		../front_camera/CLabel/Label_Def.h ../front_camera/main.cpp \
+		../front_camera/CLabel/Label_Def.h \
+		../front_camera/CMission/CMission.h \
+		../front_camera/CImage_Thread/CImage_Thread.h \
+		../front_camera/CLCM/CLCM.h \
+		../front_camera/eurecar/vision_front_cam.hpp \
+		../front_camera/eurecar/vision_lane.hpp \
+		../front_camera/CNetImg/CNetImg.h \
+		../front_camera/CNetImg/csocket.h \
+		../front_camera/CSaveImg/CSaveImg.h ../front_camera/main.cpp \
 		../front_camera/classification.cpp \
 		../front_camera/frontcameradialog.cpp \
-		../front_camera/csocket.cpp \
-		../front_camera/CLabel/CLabel.cpp
+		../front_camera/CLabel/CLabel.cpp \
+		../front_camera/CMission/CMission.cpp \
+		../front_camera/CImage_Thread/CImage_Thread.cpp \
+		../front_camera/CLCM/CLCM.cpp \
+		../front_camera/CNetImg/CNetImg.cpp \
+		../front_camera/CNetImg/csocket.cpp \
+		../front_camera/CSaveImg/CSaveImg.cpp
 QMAKE_TARGET  = front_camera
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = front_camera
@@ -523,8 +545,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../front_camera/classification.hpp ../front_camera/frontcameradialog.h ../front_camera/csocket.h ../front_camera/CLabel/CLabel.h ../front_camera/CLabel/Label_Def.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../front_camera/main.cpp ../front_camera/classification.cpp ../front_camera/frontcameradialog.cpp ../front_camera/csocket.cpp ../front_camera/CLabel/CLabel.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../front_camera/classification.hpp ../front_camera/frontcameradialog.h ../front_camera/CLabel/CLabel.h ../front_camera/CLabel/Label_Def.h ../front_camera/CMission/CMission.h ../front_camera/CImage_Thread/CImage_Thread.h ../front_camera/CLCM/CLCM.h ../front_camera/eurecar/vision_front_cam.hpp ../front_camera/eurecar/vision_lane.hpp ../front_camera/CNetImg/CNetImg.h ../front_camera/CNetImg/csocket.h ../front_camera/CSaveImg/CSaveImg.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../front_camera/main.cpp ../front_camera/classification.cpp ../front_camera/frontcameradialog.cpp ../front_camera/CLabel/CLabel.cpp ../front_camera/CMission/CMission.cpp ../front_camera/CImage_Thread/CImage_Thread.cpp ../front_camera/CLCM/CLCM.cpp ../front_camera/CNetImg/CNetImg.cpp ../front_camera/CNetImg/csocket.cpp ../front_camera/CSaveImg/CSaveImg.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../front_camera/front_camera_detection.ui $(DISTDIR)/
 
 
@@ -1033,7 +1055,8 @@ moc_frontcameradialog.cpp: ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QtWi
 		/usr/local/include/opencv2/imgproc.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
-		../front_camera/csocket.h \
+		../front_camera/CNetImg/CNetImg.h \
+		../front_camera/CNetImg/csocket.h \
 		../front_camera/classification.hpp \
 		../../../../caffe-segnet/include/caffe/caffe.hpp \
 		../../../../caffe-segnet/include/caffe/blob.hpp \
@@ -1172,10 +1195,23 @@ moc_frontcameradialog.cpp: ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QtWi
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QRadioButton \
+		../front_camera/CImage_Thread/CImage_Thread.h \
+		../front_camera/CMission/CMission.h \
 		../front_camera/CLabel/CLabel.h \
 		../front_camera/CLabel/Label_Def.h \
+		../front_camera/CLCM/CLCM.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		/usr/local/include/lcm/lcm-cpp.hpp \
+		/usr/local/include/lcm/lcm.h \
+		/usr/local/include/lcm/eventlog.h \
+		/usr/local/include/lcm/lcm-cpp-impl.hpp \
+		../front_camera/eurecar/vision_lane.hpp \
+		/usr/local/include/lcm/lcm_coretypes.h \
+		../front_camera/eurecar/vision_front_cam.hpp \
+		../front_camera/CSaveImg/CSaveImg.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
 		../front_camera/frontcameradialog.h
-	/home/jun/Qt5.5.1/5.5/gcc_64/bin/moc $(DEFINES) -I/home/jun/Qt5.5.1/5.5/gcc_64/mkspecs/linux-g++ -I'/home/jun/Workspace/Qt Source/Front Camera/front_camera' -I/usr/local/include -I/usr/lib/x86_64-linux-gnu/hdf5/serial/include -I/usr/local/cuda/include -I/home/jun/caffe-segnet/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtWidgets -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtGui -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtCore -I. ../front_camera/frontcameradialog.h -o moc_frontcameradialog.cpp
+	/home/jun/Qt5.5.1/5.5/gcc_64/bin/moc $(DEFINES) -I/home/jun/Qt5.5.1/5.5/gcc_64/mkspecs/linux-g++ -I'/home/jun/Workspace/Git/Front Camera/front_camera' -I/usr/local/include -I/usr/lib/x86_64-linux-gnu/hdf5/serial/include -I/usr/local/cuda/include -I/home/jun/caffe-segnet/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtWidgets -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtGui -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtCore -I. ../front_camera/frontcameradialog.h -o moc_frontcameradialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1679,7 +1715,8 @@ main.o: ../front_camera/main.cpp ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidget
 		/usr/local/include/opencv2/imgproc.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
-		../front_camera/csocket.h \
+		../front_camera/CNetImg/CNetImg.h \
+		../front_camera/CNetImg/csocket.h \
 		../front_camera/classification.hpp \
 		../../../../caffe-segnet/include/caffe/caffe.hpp \
 		../../../../caffe-segnet/include/caffe/blob.hpp \
@@ -1817,8 +1854,21 @@ main.o: ../front_camera/main.cpp ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidget
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QRadioButton \
+		../front_camera/CImage_Thread/CImage_Thread.h \
+		../front_camera/CMission/CMission.h \
 		../front_camera/CLabel/CLabel.h \
-		../front_camera/CLabel/Label_Def.h
+		../front_camera/CLabel/Label_Def.h \
+		../front_camera/CLCM/CLCM.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		/usr/local/include/lcm/lcm-cpp.hpp \
+		/usr/local/include/lcm/lcm.h \
+		/usr/local/include/lcm/eventlog.h \
+		/usr/local/include/lcm/lcm-cpp-impl.hpp \
+		../front_camera/eurecar/vision_lane.hpp \
+		/usr/local/include/lcm/lcm_coretypes.h \
+		../front_camera/eurecar/vision_front_cam.hpp \
+		../front_camera/CSaveImg/CSaveImg.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../front_camera/main.cpp
 
 classification.o: ../front_camera/classification.cpp ../front_camera/classification.hpp \
@@ -2465,7 +2515,8 @@ frontcameradialog.o: ../front_camera/frontcameradialog.cpp ../front_camera/front
 		/usr/local/include/opencv2/imgproc.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
 		/usr/local/include/opencv2/video/tracking_c.h \
-		../front_camera/csocket.h \
+		../front_camera/CNetImg/CNetImg.h \
+		../front_camera/CNetImg/csocket.h \
 		../front_camera/classification.hpp \
 		../../../../caffe-segnet/include/caffe/caffe.hpp \
 		../../../../caffe-segnet/include/caffe/blob.hpp \
@@ -2604,12 +2655,22 @@ frontcameradialog.o: ../front_camera/frontcameradialog.cpp ../front_camera/front
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QLineEdit \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QPushButton \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QRadioButton \
+		../front_camera/CImage_Thread/CImage_Thread.h \
+		../front_camera/CMission/CMission.h \
 		../front_camera/CLabel/CLabel.h \
-		../front_camera/CLabel/Label_Def.h
+		../front_camera/CLabel/Label_Def.h \
+		../front_camera/CLCM/CLCM.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		/usr/local/include/lcm/lcm-cpp.hpp \
+		/usr/local/include/lcm/lcm.h \
+		/usr/local/include/lcm/eventlog.h \
+		/usr/local/include/lcm/lcm-cpp-impl.hpp \
+		../front_camera/eurecar/vision_lane.hpp \
+		/usr/local/include/lcm/lcm_coretypes.h \
+		../front_camera/eurecar/vision_front_cam.hpp \
+		../front_camera/CSaveImg/CSaveImg.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o frontcameradialog.o ../front_camera/frontcameradialog.cpp
-
-csocket.o: ../front_camera/csocket.cpp ../front_camera/csocket.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o csocket.o ../front_camera/csocket.cpp
 
 CLabel.o: ../front_camera/CLabel/CLabel.cpp ../front_camera/CLabel/CLabel.h \
 		/usr/local/include/opencv2/core/mat.hpp \
@@ -2647,6 +2708,336 @@ CLabel.o: ../front_camera/CLabel/CLabel.cpp ../front_camera/CLabel/CLabel.h \
 		/usr/local/include/opencv2/videoio/videoio_c.h \
 		../front_camera/CLabel/Label_Def.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CLabel.o ../front_camera/CLabel/CLabel.cpp
+
+CMission.o: ../front_camera/CMission/CMission.cpp ../front_camera/CMission/CMission.h \
+		../front_camera/CLabel/CLabel.h \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		../front_camera/CLabel/Label_Def.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CMission.o ../front_camera/CMission/CMission.cpp
+
+CImage_Thread.o: ../front_camera/CImage_Thread/CImage_Thread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CImage_Thread.o ../front_camera/CImage_Thread/CImage_Thread.cpp
+
+CLCM.o: ../front_camera/CLCM/CLCM.cpp ../front_camera/CLCM/CLCM.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfeatures.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_gcc.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv7.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv6.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv5.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_ia64.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_mips.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_x86.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_unix.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringbuilder.h \
+		/usr/local/include/lcm/lcm-cpp.hpp \
+		/usr/local/include/lcm/lcm.h \
+		/usr/local/include/lcm/eventlog.h \
+		/usr/local/include/lcm/lcm-cpp-impl.hpp \
+		../front_camera/eurecar/vision_lane.hpp \
+		/usr/local/include/lcm/lcm_coretypes.h \
+		../front_camera/eurecar/vision_front_cam.hpp \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/video.hpp \
+		/usr/local/include/opencv2/video/tracking.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/video/background_segm.hpp \
+		/usr/local/include/opencv2/video/tracking_c.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CLCM.o ../front_camera/CLCM/CLCM.cpp
+
+CNetImg.o: ../front_camera/CNetImg/CNetImg.cpp ../front_camera/CNetImg/CNetImg.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QThread \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qthread.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfeatures.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_gcc.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv7.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv6.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv5.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_ia64.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_mips.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_x86.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_unix.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qisenum.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobject_impl.h \
+		../front_camera/CNetImg/csocket.h \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/video.hpp \
+		/usr/local/include/opencv2/video/tracking.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/video/background_segm.hpp \
+		/usr/local/include/opencv2/video/tracking_c.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CNetImg.o ../front_camera/CNetImg/CNetImg.cpp
+
+csocket.o: ../front_camera/CNetImg/csocket.cpp ../front_camera/CNetImg/csocket.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o csocket.o ../front_camera/CNetImg/csocket.cpp
+
+CSaveImg.o: ../front_camera/CSaveImg/CSaveImg.cpp ../front_camera/CSaveImg/CSaveImg.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfeatures.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qtypetraits.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_gcc.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv7.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv6.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_armv5.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_ia64.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_mips.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_x86.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qatomic_unix.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qmutex.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qdir.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfileinfo.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qisenum.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qpair.h \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/video.hpp \
+		/usr/local/include/opencv2/video/tracking.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		/usr/local/include/opencv2/video/background_segm.hpp \
+		/usr/local/include/opencv2/video/tracking_c.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CSaveImg.o ../front_camera/CSaveImg/CSaveImg.cpp
 
 moc_frontcameradialog.o: moc_frontcameradialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_frontcameradialog.o moc_frontcameradialog.cpp

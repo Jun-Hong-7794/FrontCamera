@@ -40,7 +40,8 @@ SOURCES += main.cpp \
     CImage_Thread/CImage_Thread.cpp \
     CLCM/CLCM.cpp \
     CNetImg/CNetImg.cpp \
-    CNetImg/csocket.cpp
+    CNetImg/csocket.cpp \
+    CSaveImg/CSaveImg.cpp
 
 FORMS += \
     front_camera_detection.ui
@@ -56,7 +57,8 @@ HEADERS += \
     eurecar/vision_front_cam.hpp \
     eurecar/vision_lane.hpp \
     CNetImg/CNetImg.h \
-    CNetImg/csocket.h
+    CNetImg/csocket.h \
+    CSaveImg/CSaveImg.h
 
 DISTFILES +=
 

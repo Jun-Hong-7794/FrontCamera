@@ -18,34 +18,34 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_Image_Thread_t {
+struct qt_meta_stringdata_CImage_Thread_t {
     QByteArrayData data[8];
-    char stringdata0[82];
+    char stringdata0[83];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_Image_Thread_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_CImage_Thread_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_Image_Thread_t qt_meta_stringdata_Image_Thread = {
+static const qt_meta_stringdata_CImage_Thread_t qt_meta_stringdata_CImage_Thread = {
     {
-QT_MOC_LITERAL(0, 0, 12), // "Image_Thread"
-QT_MOC_LITERAL(1, 13, 9), // "Get_Image"
-QT_MOC_LITERAL(2, 23, 0), // ""
-QT_MOC_LITERAL(3, 24, 7), // "cv::Mat"
-QT_MOC_LITERAL(4, 32, 22), // "Set_Image_Capture_Mode"
-QT_MOC_LITERAL(5, 55, 9), // "_cap_mode"
-QT_MOC_LITERAL(6, 65, 10), // "_save_mode"
-QT_MOC_LITERAL(7, 76, 5) // "_path"
+QT_MOC_LITERAL(0, 0, 13), // "CImage_Thread"
+QT_MOC_LITERAL(1, 14, 9), // "Get_Image"
+QT_MOC_LITERAL(2, 24, 0), // ""
+QT_MOC_LITERAL(3, 25, 7), // "cv::Mat"
+QT_MOC_LITERAL(4, 33, 22), // "Set_Image_Capture_Mode"
+QT_MOC_LITERAL(5, 56, 9), // "_cap_mode"
+QT_MOC_LITERAL(6, 66, 10), // "_save_mode"
+QT_MOC_LITERAL(7, 77, 5) // "_path"
 
     },
-    "Image_Thread\0Get_Image\0\0cv::Mat\0"
+    "CImage_Thread\0Get_Image\0\0cv::Mat\0"
     "Set_Image_Capture_Mode\0_cap_mode\0"
     "_save_mode\0_path"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_Image_Thread[] = {
+static const uint qt_meta_data_CImage_Thread[] = {
 
  // content:
        7,       // revision
@@ -73,10 +73,10 @@ static const uint qt_meta_data_Image_Thread[] = {
        0        // eod
 };
 
-void Image_Thread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void CImage_Thread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Image_Thread *_t = static_cast<Image_Thread *>(_o);
+        CImage_Thread *_t = static_cast<CImage_Thread *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->Get_Image((*reinterpret_cast< cv::Mat(*)>(_a[1]))); break;
@@ -87,34 +87,34 @@ void Image_Thread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (Image_Thread::*_t)(cv::Mat );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Image_Thread::Get_Image)) {
+            typedef void (CImage_Thread::*_t)(cv::Mat );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&CImage_Thread::Get_Image)) {
                 *result = 0;
             }
         }
     }
 }
 
-const QMetaObject Image_Thread::staticMetaObject = {
-    { &QThread::staticMetaObject, qt_meta_stringdata_Image_Thread.data,
-      qt_meta_data_Image_Thread,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
+const QMetaObject CImage_Thread::staticMetaObject = {
+    { &QThread::staticMetaObject, qt_meta_stringdata_CImage_Thread.data,
+      qt_meta_data_CImage_Thread,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
 
-const QMetaObject *Image_Thread::metaObject() const
+const QMetaObject *CImage_Thread::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Image_Thread::qt_metacast(const char *_clname)
+void *CImage_Thread::qt_metacast(const char *_clname)
 {
     if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_Image_Thread.stringdata0))
-        return static_cast<void*>(const_cast< Image_Thread*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_CImage_Thread.stringdata0))
+        return static_cast<void*>(const_cast< CImage_Thread*>(this));
     return QThread::qt_metacast(_clname);
 }
 
-int Image_Thread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int CImage_Thread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QThread::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -132,7 +132,7 @@ int Image_Thread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Image_Thread::Get_Image(cv::Mat _t1)
+void CImage_Thread::Get_Image(cv::Mat _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

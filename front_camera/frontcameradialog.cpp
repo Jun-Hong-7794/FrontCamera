@@ -257,10 +257,24 @@ void FRONT_CAMERA::Click_Start_Button(){
 
 
         if(ck_savemode_org->isChecked()){
-            m_save_mode |= 0x01;
+            m_save_mode |= 0x000001;
+            m_save_org_image.Save_Folder_Init("org",IMG_TYPE_ORIGINAL);
         }
         if(ck_savemode_out->isChecked()){
-            m_save_mode |= 0x10;
+            m_save_mode |= 0x000010;
+            m_save_seg_image.Save_Folder_Init("seg",IMG_TYPE_SEGMENT);
+        }
+        if(ck_traffic_img_log->isChecked()){
+            m_save_mode |= 0x000100;
+            m_save_trf_image.Save_Folder_Init("trf",IMG_TYPE_TRAFFIC_SIGNAL);
+        }
+        if(ck_sign_img_log->isChecked()){
+            m_save_mode |= 0x001000;
+            m_save_sig_image.Save_Folder_Init("sig",IMG_TYPE_SIGN);
+        }
+        if(ck_pedestrian_img_log->isChecked()){
+            m_save_mode |= 0x010000;
+            m_save_ped_image.Save_Folder_Init("ped",IMG_TYPE_PEDESTRIAN);
         }
 
         bt_start_stop->setText("Stop Button");
@@ -277,6 +291,10 @@ void FRONT_CAMERA::Click_Start_Button(){
 
         ck_savemode_org->setEnabled(false);
         ck_savemode_out->setEnabled(false);
+
+        ck_traffic_img_log->setEnabled(false);
+        ck_sign_img_log->setEnabled(false);
+        ck_pedestrian_img_log->setEnabled(false);
 
         bt_file_dialog->setEnabled(false);
     }
@@ -298,7 +316,28 @@ void FRONT_CAMERA::Click_Start_Button(){
         ck_savemode_org->setEnabled(true);
         ck_savemode_out->setEnabled(true);
 
+        ck_traffic_img_log->setEnabled(true);
+        ck_sign_img_log->setEnabled(true);
+        ck_pedestrian_img_log->setEnabled(true);
+
         bt_file_dialog->setEnabled(true);
+
+        if(ck_savemode_org->isChecked()){
+            m_save_org_image.Close_Folder();
+        }
+        if(ck_savemode_out->isChecked()){
+            m_save_seg_image.Close_Folder();
+        }
+        if(ck_traffic_img_log->isChecked()){
+            m_save_trf_image.Close_Folder();
+        }
+        if(ck_sign_img_log->isChecked()){
+            m_save_sig_image.Close_Folder();
+        }
+        if(ck_pedestrian_img_log->isChecked()){
+            m_save_ped_image.Close_Folder();
+        }
+
         sleep(1);
     }
 
@@ -323,6 +362,8 @@ void FRONT_CAMERA::Set_Image(cv::Mat _img){
     Display_Image(m_segment_img,mp_out_qgraphic,outimage_view);
 
     Mission();
+
+    Save_Image();
 
     mp_img_thread->Set_Segment_Flag(true);
 
@@ -351,6 +392,10 @@ void FRONT_CAMERA::Mission(){
 
         Display_Image(crop_rst,mp_mission_qgraphic_signal,signal_view);
         Display_Image(crop_signal,mp_mission_qgraphic_signal_color,signal_color_view);
+
+        if(ck_traffic_img_log->isChecked()){
+            m_save_trf_image.Save_Image(crop_rst);
+        }
     }
 
     if(ck_mission_sign->isChecked()){
@@ -360,6 +405,10 @@ void FRONT_CAMERA::Mission(){
         m_cmission.Mission_Traffic_sign(m_orgimg,m_segment_img,rst,crop_sign);
 
         Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view);
+
+        if(ck_sign_img_log->isChecked()){
+            m_save_sig_image.Save_Image(crop_sign);
+        }
     }
 
     if(ck_mission_pedestrian->isChecked()){
@@ -369,9 +418,23 @@ void FRONT_CAMERA::Mission(){
         m_cmission.Mission_Pedestrian(m_orgimg,m_segment_img,rst,crop_pedestrian);
 
         Display_Image(crop_pedestrian,mp_mission_qgraphic_pedestrian,pedestrian_view);
+
+        if(ck_pedestrian_img_log->isChecked()){
+            m_save_ped_image.Save_Image(crop_pedestrian);
+        }
     }
 
     //cv::imshow("Segment Image", m_segment_img);
+    return;
+}
+
+void FRONT_CAMERA::Save_Image(){
+    if(m_save_mode && SAVE_MODE_ORIGINAL){
+        m_save_org_image.Save_Image(m_orgimg);
+    }
+    if(m_save_mode && SAVE_MODE_SEGMENT){
+        m_save_seg_image.Save_Image(m_segment_img);
+    }
     return;
 }
 
