@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "csocket.h"
+#include "CNetImg/csocket.h"
 
 
 #include <opencv2/core/core.hpp>

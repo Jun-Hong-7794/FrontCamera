@@ -1,4 +1,4 @@
-#include "csocket.h"
+#include "CNetImg/csocket.h"
 
 CClient::~CClient(){
     if(fl_socket_open){
