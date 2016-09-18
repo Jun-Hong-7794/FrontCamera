@@ -92,9 +92,7 @@ void CSaveImg::Save_Image(cv::Mat _img ,int _time_stamp){
 
 void CSaveImg::Close_Folder(){
     m_folder_path = " ";
-
     m_file_index = 0;
-
     fl_time_stamp_option = false;
 }
 
