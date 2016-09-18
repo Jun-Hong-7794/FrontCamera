@@ -52,10 +52,10 @@ int CMission::Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n){
     for(int i = 0; i < _n; i++){
         HSV_Average_Result(_image_list[i],hsv_avg[i]);
 
-        cout << "Number : " << i <<endl;
-        cout << "H : " << hsv_avg[i].h_avg << endl;
-        cout << "S : " << hsv_avg[i].s_avg << endl;
-        cout << "V : " << hsv_avg[i].v_avg << endl << endl;
+//        cout << "Number : " << i <<endl;
+//        cout << "H : " << hsv_avg[i].h_avg << endl;
+//        cout << "S : " << hsv_avg[i].s_avg << endl;
+//        cout << "V : " << hsv_avg[i].v_avg << endl << endl;
     }
 
     for(int i = 0; i < _n; i++){
