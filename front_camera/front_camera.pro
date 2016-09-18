@@ -35,11 +35,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     classification.cpp \
     frontcameradialog.cpp \
-    csocket.cpp \
     CLabel/CLabel.cpp \
     CMission/CMission.cpp \
     CImage_Thread/CImage_Thread.cpp \
-    CLCM/CLCM.cpp
+    CLCM/CLCM.cpp \
+    CNetImg/CNetImg.cpp \
+    CNetImg/csocket.cpp
 
 FORMS += \
     front_camera_detection.ui
@@ -47,14 +48,15 @@ FORMS += \
 HEADERS += \
     classification.hpp \
     frontcameradialog.h \
-    csocket.h \
     CLabel/CLabel.h \
     CLabel/Label_Def.h \
     CMission/CMission.h \
     CImage_Thread/CImage_Thread.h \
     CLCM/CLCM.h \
     eurecar/vision_front_cam.hpp \
-    eurecar/vision_lane.hpp
+    eurecar/vision_lane.hpp \
+    CNetImg/CNetImg.h \
+    CNetImg/csocket.h
 
 DISTFILES +=
 

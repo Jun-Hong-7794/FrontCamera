@@ -14,8 +14,7 @@
  void CImage_Thread::Image_Capture(cv::Mat &_img){
 
      if(m_capture_mode == 1){
-//        (*mp_video) >> _img;
-         //cv::waitKey(80);
+         m_net_image.Image_From_Net(_img);
      }
 
      if(m_capture_mode == 2){
@@ -64,8 +63,10 @@ void CImage_Thread::Start_Img_Thread(){
     fl_stream = true;
 
     if(m_capture_mode == 1){
-        mp_client = new CClient;
-        mp_client->socket_init((char *)"192.168.3.6",1234,(char *)"192.168.3.5",1234);
+        if(!m_net_image.Socket_Init((char *)"192.168.3.6",1234)){
+            std::cout << "m_net_image Init Fail!" << std::endl;
+            fl_stream = false;
+        }
     }
     if(m_capture_mode == 2){
         std::string current_locale_text = m_avi_path.toLocal8Bit().constData();
@@ -91,10 +92,7 @@ void CImage_Thread::Start_Img_Thread(){
 void CImage_Thread::Stop_Img_Thread(){
 
     if(m_capture_mode == 1){
-        if(mp_client != 0){
-            delete mp_client;
-            mp_client = 0;
-        }
+        m_net_image.Socket_Close();
     }
     if(m_capture_mode == 2){
         if(mp_video == 0){
