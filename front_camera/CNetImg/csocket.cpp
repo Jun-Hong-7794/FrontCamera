@@ -9,6 +9,8 @@ CClient::~CClient(){
 
 int CClient::socket_init(char *_server_ip,int _server_port,char *_client_ip,int _client_port){
 
+    m_client_socket  = socket( PF_INET, SOCK_STREAM, 0);
+
     memset( &m_server_addr, 0, sizeof( m_server_addr));
     m_server_addr.sin_family     = PF_INET;
     m_server_addr.sin_port       = htons(_server_port);
@@ -18,8 +20,9 @@ int CClient::socket_init(char *_server_ip,int _server_port,char *_client_ip,int 
         memset( &m_client_addr,0,sizeof(m_client_addr));
         m_client_addr.sin_family = PF_INET;
         m_client_addr.sin_addr.s_addr = inet_addr(_client_ip);
+//        m_client_addr.sin_addr.s_addr = inet_addr("192.168.3.5");
         if(_client_port != 0){
-            m_client_addr.sin_port = htons(_client_port);
+            m_client_addr.sin_port = htons(1234);
         }
     }
 

@@ -233,10 +233,11 @@ void FRONT_CAMERA::Click_Start_Button(){
             }
 
             ed_image_source->setText("Image From image");
-            mp_img_thread->Start_Img_Thread();
+
 
             mp_img_thread->Set_Segment_Flag(true);
             emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_img_path);
+            mp_img_thread->Start_Img_Thread();
             mp_img_thread->start();
 
             return;

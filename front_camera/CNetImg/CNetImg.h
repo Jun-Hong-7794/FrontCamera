@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <QThread>
+
 #include "CNetImg/csocket.h"
 
 
@@ -16,6 +18,10 @@ class CNetImg{
 
 private:
     CClient *mp_client;
+
+    bool fl_socket_stream;
+public:
+    CNetImg();
 
 public:
     bool Socket_Init(char* _server_ip, int _server_port);
