@@ -1,0 +1,17 @@
+package eurecar;
+
+struct vision_front_cam
+{
+	int64_t timestamp;
+
+	boolean traffic_signal_exist;
+	boolean parking_sign_exist;
+	boolean pedestrian_exist;
+	
+	/*red = 1 yel = 2 green_left = 3 green = 4*/
+	int32_t traffic_signal_color; 
+	/*P1 = 1 P2 = 2 P3 = 3 P4 = 4*/
+	int32_t parking_sign;
+	/*x : 1.0(Left) ~  0.0(Right)*/
+	double pedestrian_location;
+}
