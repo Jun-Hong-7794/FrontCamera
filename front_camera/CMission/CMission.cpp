@@ -37,6 +37,7 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
 
     delete[] signal_image_list;
     delete[] signal_hsv_image_list;
+
     return true;
 }
 
