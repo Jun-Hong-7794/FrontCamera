@@ -109,12 +109,24 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,int &
 
 bool CMission::Mission_Pedestrian(cv::Mat _org_image, cv::Mat _seg_image,int &_pedestrian_rst,cv::Mat &_rst_img){
 
+    if(m_pedestrian_prv_img.rows == 0 || m_pedestrian_prv_img.cols == 0)
+        m_pedestrian_prv_img = _org_image.clone();
+
+
+    //Image_Subtract(_org_image, m_pedestrian_prv_img, _rst_img);
     _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_PEDASTRAIN));
 
     _pedestrian_rst = 0;
 
     return true;
 }
+
+void CMission::Image_Subtract(cv::Mat _img_1, cv::Mat _img_2, cv::Mat &_img_rst){
+    cv::absdiff(_img_1,_img_2,_img_rst);
+    m_pedestrian_prv_img = _img_1.clone();
+    cv::imshow("aa",_img_rst);
+}
+
 
 bool CMission::Mission_Incident(cv::Mat _org_image, cv::Mat _seg_image,int &_incidence_rst,cv::Mat &_rst_img){
 
