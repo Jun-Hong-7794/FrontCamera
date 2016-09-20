@@ -160,8 +160,10 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
     m_save_mode = 0;
     m_capture_mode = 0;
 
-    m_model_file = "/home/jun/caffe-segnet/examples/segnet/segnet_inference_input.prototxt";
-    m_weight_file = "/home/jun/caffe-segnet/examples/segnet/Inference/test_weights_front_camera.caffemodel";
+//    m_model_file  = "/home/jun/caffe-segnet/examples/segnet/segnet_inference_input.prototxt";
+//    m_weight_file = "/home/jun/caffe-segnet/examples/segnet/Inference/test_weights_front_camera.caffemodel";
+    m_model_file  = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/segnet_inference_input.prototxt";
+    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/test_weights.caffemodel";
 
     m_str_avi_path = " ";
     m_str_img_path = " ";

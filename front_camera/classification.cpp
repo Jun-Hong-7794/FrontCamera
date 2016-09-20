@@ -81,7 +81,8 @@ cv::Mat Classifier_segnet::Predict(const cv::Mat& img) {
 	int Car[3]={64,0,128};
 	int Pedestrian[3]={64,64,0};
 	int Bicyclist[3]={0,128,192};
-	int Fence[3]={64,64,128};
+    int DummyCar[3]={255,255,255};
+    int Fence[3]={64,64,128};
 
 	label.push_back(Sky);
 	label.push_back(Building);
@@ -94,7 +95,8 @@ cv::Mat Classifier_segnet::Predict(const cv::Mat& img) {
 	label.push_back(Car);
 	label.push_back(Pedestrian);
 	label.push_back(Bicyclist);
-	label.push_back(Fence);
+    label.push_back(DummyCar);
+    label.push_back(Fence);
 
 
 	cv::Mat result_img(input_geometry_.height,input_geometry_.width,CV_8UC3);
