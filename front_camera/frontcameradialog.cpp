@@ -187,6 +187,10 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
                 QRectF(0, 0, sign_view->geometry().width(), sign_view->geometry().height()), 0);
     mp_mission_qgraphic_pedestrian = new QGraphicsScene(
                 QRectF(0, 0, pedestrian_view->geometry().width(), pedestrian_view->geometry().height()), 0);
+    mp_mission_qgraphic_dummy_car = new QGraphicsScene(
+                QRectF(0, 0, dummy_car_view->geometry().width(), dummy_car_view->geometry().height()), 0);
+    mp_mission_qgraphic_normal_car= new QGraphicsScene(
+                QRectF(0, 0, normal_car_view->geometry().width(), normal_car_view->geometry().height()), 0);
 
     connect(bt_start_stop,SIGNAL(clicked()),this,SLOT(Click_Start_Button()));
     connect(bt_file_dialog,SIGNAL(clicked()),this,SLOT(File_Dialog()));
@@ -424,6 +428,32 @@ void FRONT_CAMERA::Mission(){
         if(ck_pedestrian_img_log->isChecked()){
             m_save_ped_image.Save_Image(crop_pedestrian);
         }
+    }
+
+    if(ck_mission_dummy_car->isChecked()){
+        cv::Mat crop_dummy_car;
+        int rst = 0;
+
+        m_cmission.Mission_Dummy_Car(m_orgimg,m_segment_img,rst,crop_dummy_car);
+
+        Display_Image(crop_dummy_car,mp_mission_qgraphic_dummy_car,dummy_car_view);
+
+//        if(ck_dummy_car_img_log->isChecked()){
+//            m_save_ped_image.Save_Image(crop_dummy_car);
+//        }
+    }
+
+    if(ck_mission_normal_car->isChecked()){
+        cv::Mat crop_normal_car;
+        int rst = 0;
+
+        m_cmission.Mission_Normal_Car(m_orgimg,m_segment_img,rst,crop_normal_car);
+
+        Display_Image(crop_normal_car,mp_mission_qgraphic_normal_car,normal_car_view);
+
+//        if(ck_dummy_car_img_log->isChecked()){
+//            m_save_ped_image.Save_Image(crop_dummy_car);
+//        }
     }
 
     //cv::imshow("Segment Image", m_segment_img);

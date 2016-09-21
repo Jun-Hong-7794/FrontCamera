@@ -136,3 +136,21 @@ bool CMission::Mission_Incident(cv::Mat _org_image, cv::Mat _seg_image,int &_inc
 
     return true;
 }
+
+bool CMission::Mission_Dummy_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_incidence_rst,cv::Mat &_rst_img){
+
+    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_DUMMY_CAR));
+
+    _incidence_rst = 0;
+
+    return true;
+}
+
+bool CMission::Mission_Normal_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img){
+
+    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_CAR));
+
+    _sign_rst = 0;
+
+    return true;
+}

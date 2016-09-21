@@ -10,3 +10,4 @@
 #define LABEL_ROAD_SIGN             0xff4500
 #define LABEL_SIGNAL                0x0080c0
 #define LABEL_COLUMN             	0xc0c080
+#define LABEL_DUMMY_CAR             0xffffff

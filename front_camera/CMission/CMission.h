@@ -33,4 +33,8 @@ public:
     void Image_Subtract(cv::Mat _img_1, cv::Mat _img_2, cv::Mat &_img_rst);
 
     bool Mission_Incident(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
+
+    bool Mission_Dummy_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
+
+    bool Mission_Normal_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
 };

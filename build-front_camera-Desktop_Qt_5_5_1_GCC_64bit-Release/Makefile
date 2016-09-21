@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = front_camera1.0.0
-DISTDIR = /home/jun/Workspace/Git/Front\ Camera/build-front_camera-Desktop_Qt_5_5_1_GCC_64bit-Release/.tmp/front_camera1.0.0
+DISTDIR = /home/jun/Workspace/Git/FrontCamera/build-front_camera-Desktop_Qt_5_5_1_GCC_64bit-Release/.tmp/front_camera1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/jun/Qt5.5.1/5.5/gcc_64 -Wl,-rpath,/home/jun/Qt5.5.1/5.5/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/usr/local/lib -lopencv_core -lopencv_videoio -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5 -L/home/jun/caffe-segnet/build/lib -lcaffe -L/usr/lib/x86_64-linux-gnu -lboost_system -lglog -llcm -L/home/jun/Qt5.5.1/5.5/gcc_64/lib -lQt5Widgets -L/usr/lib64 -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -1210,8 +1210,10 @@ moc_frontcameradialog.cpp: ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QtWi
 		../front_camera/eurecar/vision_front_cam.hpp \
 		../front_camera/CSaveImg/CSaveImg.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime \
 		../front_camera/frontcameradialog.h
-	/home/jun/Qt5.5.1/5.5/gcc_64/bin/moc $(DEFINES) -I/home/jun/Qt5.5.1/5.5/gcc_64/mkspecs/linux-g++ -I'/home/jun/Workspace/Git/Front Camera/front_camera' -I/usr/local/include -I/usr/lib/x86_64-linux-gnu/hdf5/serial/include -I/usr/local/cuda/include -I/home/jun/caffe-segnet/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtWidgets -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtGui -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtCore -I. ../front_camera/frontcameradialog.h -o moc_frontcameradialog.cpp
+	/home/jun/Qt5.5.1/5.5/gcc_64/bin/moc $(DEFINES) -I/home/jun/Qt5.5.1/5.5/gcc_64/mkspecs/linux-g++ -I/home/jun/Workspace/Git/FrontCamera/front_camera -I/usr/local/include -I/usr/lib/x86_64-linux-gnu/hdf5/serial/include -I/usr/local/cuda/include -I/home/jun/caffe-segnet/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtWidgets -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtGui -I/home/jun/Qt5.5.1/5.5/gcc_64/include/QtCore -I. ../front_camera/frontcameradialog.h -o moc_frontcameradialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1868,7 +1870,9 @@ main.o: ../front_camera/main.cpp ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidget
 		/usr/local/include/lcm/lcm_coretypes.h \
 		../front_camera/eurecar/vision_front_cam.hpp \
 		../front_camera/CSaveImg/CSaveImg.h \
-		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../front_camera/main.cpp
 
 classification.o: ../front_camera/classification.cpp ../front_camera/classification.hpp \
@@ -2669,7 +2673,9 @@ frontcameradialog.o: ../front_camera/frontcameradialog.cpp ../front_camera/front
 		/usr/local/include/lcm/lcm_coretypes.h \
 		../front_camera/eurecar/vision_front_cam.hpp \
 		../front_camera/CSaveImg/CSaveImg.h \
-		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o frontcameradialog.o ../front_camera/frontcameradialog.cpp
 
 CLabel.o: ../front_camera/CLabel/CLabel.cpp ../front_camera/CLabel/CLabel.h \
@@ -2936,7 +2942,8 @@ csocket.o: ../front_camera/CNetImg/csocket.cpp ../front_camera/CNetImg/csocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o csocket.o ../front_camera/CNetImg/csocket.cpp
 
 CSaveImg.o: ../front_camera/CSaveImg/CSaveImg.cpp ../front_camera/CSaveImg/CSaveImg.h \
-		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qdir.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstring.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qchar.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qglobal.h \
@@ -2972,8 +2979,6 @@ CSaveImg.o: ../front_camera/CSaveImg/CSaveImg.cpp ../front_camera/CSaveImg/CSave
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qnamespace.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qarraydata.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
-		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qdir.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfileinfo.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfile.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qfiledevice.h \
@@ -2998,6 +3003,10 @@ CSaveImg.o: ../front_camera/CSaveImg/CSaveImg.cpp ../front_camera/CSaveImg/CSave
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qshareddata.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qhash.h \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QString \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/qdatetime.h \
+		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime \
 		/usr/local/include/opencv2/core/core.hpp \
 		/usr/local/include/opencv2/core.hpp \
 		/usr/local/include/opencv2/core/cvdef.h \

@@ -135,6 +135,10 @@ private://Dialog
 //    QPixmap m_mission_qpix_pedestrian;
     QGraphicsScene *mp_mission_qgraphic_pedestrian;
 
+    QGraphicsScene *mp_mission_qgraphic_dummy_car;
+
+    QGraphicsScene *mp_mission_qgraphic_normal_car;
+
     int m_view_width;
     int m_view_height;
 
