@@ -40,6 +40,23 @@ QString CSaveImg::Current_Time_to_String(){
     return date_and_time;
 }
 
+QString CSaveImg::Current_Time_to_String_Just_Time(){
+
+    QString date_and_time = "";
+
+    date_and_time += QString::number(QDateTime::currentDateTime().date().day());
+
+    date_and_time += QString::number(QDateTime::currentDateTime().time().hour());
+
+    date_and_time += QString::number(QDateTime::currentDateTime().time().minute());
+
+    date_and_time += QString::number(QDateTime::currentDateTime().time().second());
+
+    date_and_time += QString::number(QDateTime::currentDateTime().time().msec());
+
+    return date_and_time;
+}
+
 
 void CSaveImg::Save_Folder_Init(QString _folder_name, int _img_type, bool _using_time_stamp_name){
 
@@ -81,6 +98,10 @@ void CSaveImg::Save_Image(cv::Mat _img ,int _time_stamp){
         QString file_name = m_folder_path + "/" + QString::number(m_file_index) + ".jpg";
         current_locale_path = file_name.toLocal8Bit().constData();
         m_file_index++;
+    }
+    else if(_time_stamp == -1){
+        QString file_name = m_folder_path + "/" + Current_Time_to_String_Just_Time() + ".jpg";
+        current_locale_path = file_name.toLocal8Bit().constData();
     }
     else{
         QString file_name = m_folder_path + "/" + QString::number(_time_stamp) + ".jpg";

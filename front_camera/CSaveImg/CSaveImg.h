@@ -32,6 +32,7 @@ public:
 
 private:
     QString Current_Time_to_String();
+    QString Current_Time_to_String_Just_Time();
 
 public:
     void Save_Folder_Init(QString _folder_name, int _img_type, bool _using_time_stamp_name = false);

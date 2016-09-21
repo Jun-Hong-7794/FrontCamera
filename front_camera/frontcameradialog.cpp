@@ -20,6 +20,7 @@
      if(m_capture_mode == 2){
         (*mp_video) >> _img;
          //cv::waitKey(80);
+        QThread::msleep(80);
      }
 
      if(m_capture_mode == 3){
@@ -221,14 +222,14 @@ void FRONT_CAMERA::Click_Start_Button(){
 
             ed_image_source->setText("Image From Avi");
             mp_img_thread->Set_Segment_Flag(true);
-            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, " " );
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_avi_path);
         }
         if(rd_input_mode_usb->isChecked()){
             m_capture_mode = 3;
 
             ed_image_source->setText("Image From Webcam");
             mp_img_thread->Set_Segment_Flag(true);
-            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, m_str_avi_path);
+            emit Get_Image_Capture_Mode(m_capture_mode, m_save_mode, " " );
         }
         if(rd_input_mode_img->isChecked()){
             m_capture_mode = 4;
@@ -408,13 +409,14 @@ void FRONT_CAMERA::Mission(){
         cv::Mat crop_sign;
         int rst = 0;
 
-        m_cmission.Mission_Traffic_sign(m_orgimg,m_segment_img,rst,crop_sign);
+        m_cmission.Mission_Traffic_sign(m_orgimg, m_segment_img,
+                                        rst, crop_sign, ck_sign_img_log->isChecked(), &m_save_sig_image);
 
         Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view);
 
-        if(ck_sign_img_log->isChecked()){
-            m_save_sig_image.Save_Image(crop_sign);
-        }
+//        if(ck_sign_img_log->isChecked()){
+//            m_save_sig_image.Save_Image(crop_sign);
+//        }
     }
 
     if(ck_mission_pedestrian->isChecked()){

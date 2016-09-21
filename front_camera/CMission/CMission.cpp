@@ -98,7 +98,8 @@ void CMission::HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg){
 
 //Traffic_Signal Mission
 
-bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img){
+bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
+                                    int &_sign_rst,cv::Mat &_rst_img, bool _fl_save, CSaveImg *_csave){
 
     int numberOfLabel = 0;
     cv::Rect roi_rect[NUMBER_OF_LABELS];
@@ -119,6 +120,9 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,int &
                 continue;
 
             rst_img_ary[i] = _org_image(roi_rect[i]);
+
+            if(_fl_save)
+                _csave->Save_Image(rst_img_ary[i],-1);
             //cv::imshow(QString::number(i).toStdString(),rst_img_ary[i]);
         }
     }

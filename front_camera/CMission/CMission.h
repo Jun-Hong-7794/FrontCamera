@@ -6,6 +6,7 @@
 #include <QString>
 
 #include "../CLabel/CLabel.h"
+#include "CSaveImg/CSaveImg.h"
 
 #define TRAFFIC_SIGNAL_NUMBER 4
 
@@ -37,7 +38,8 @@ public:
     int Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n);
     void HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg);
 
-    bool Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
+    bool Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
+                              int &_sign_rst,cv::Mat &_rst_img, bool _fl_save = false, CSaveImg *_csave = 0);
 
     bool Mission_Pedestrian(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
     void Image_Subtract(cv::Mat _img_1, cv::Mat _img_2, cv::Mat &_img_rst);
