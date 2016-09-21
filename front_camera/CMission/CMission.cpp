@@ -100,18 +100,33 @@ void CMission::HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg){
 
 bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img){
 
-//    bool Image_Label(cv::Mat _img_org, int _label_class,
-//                     ROI_RECT *_rect_ary, int _max_label_num, int &_label_number,
-//                     int _label_max_size, int _label_min_size);
     int numberOfLabel = 0;
-    ROI_RECT roi_rect[NUMBER_OF_LABELS];
-    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_SIGN));
+    cv::Rect roi_rect[NUMBER_OF_LABELS];
+    cv::Mat* rst_img_ary = 0;
 
-    m_clabel.Image_Label(_seg_image, LABEL_SIGN,
+    //_rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_SIGN));
+
+    if(!m_clabel.Image_Label(_seg_image, LABEL_SIGN,
                          roi_rect, NUMBER_OF_LABELS, numberOfLabel,
-                         LABELIMAGE_SIZE_MAX, LABELIMAGE_SIZE_MIN);
+                         LABELIMAGE_SIZE_MAX, LABELIMAGE_SIZE_MIN))
+        return false;
+
+    else{
+        rst_img_ary = new cv::Mat[numberOfLabel];
+        for(int i = 0; i < numberOfLabel; i++){
+
+            if(roi_rect[i].height == 0)
+                continue;
+
+            rst_img_ary[i] = _org_image(roi_rect[i]);
+            cv::imshow(QString::number(i).toStdString(),rst_img_ary[i]);
+        }
+    }
 
     _sign_rst = 0;
+
+    if(rst_img_ary != 0)
+        delete[] rst_img_ary;
 
     return true;
 }

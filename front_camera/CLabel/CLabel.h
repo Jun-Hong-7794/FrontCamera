@@ -27,7 +27,7 @@ private://Image Buffer
 public:
     cv::Rect Image_Label(cv::Mat _img_org, int _label_class);
     bool Image_Label(cv::Mat _img_org, int _label_class,
-                     ROI_RECT *_rect_ary, int _max_label_num, int &_label_number,
+                     cv::Rect *_rect_ary, int _max_label_num, int &_label_number,
                      int _label_max_size, int _label_min_size);
 
 private:

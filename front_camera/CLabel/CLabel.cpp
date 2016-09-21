@@ -61,7 +61,7 @@ cv::Rect CLabel::Image_Label(cv::Mat _img_org, int _label_class){
 }
 
 bool CLabel::Image_Label(cv::Mat _img_org, int _label_class,
-                 ROI_RECT *_rect_ary, int _max_label_num, int &_label_number,
+                 cv::Rect *_rect_ary, int _max_label_num, int &_label_number,
                  int _label_max_size, int _label_min_size){
 
     cv::Mat org_img;
@@ -88,58 +88,68 @@ bool CLabel::Image_Label(cv::Mat _img_org, int _label_class,
         return false;
 
     int *label_sort = new int[numOfLabels];
+    int *label_sort_zero = new int[numOfLabels-1];
 
-    for(int i = 1; i < numOfLabels;i++){
+    memset(label_sort, 0, sizeof(int) * numOfLabels);
+    memset(label_sort_zero, 0, sizeof(int) * (numOfLabels-1));
 
-        int area_i = states.at<int>(i, cv::CC_STAT_WIDTH) *
-                states.at<int>(i, cv::CC_STAT_HEIGHT);
+    for(int i = 0; i < numOfLabels; i++)
+        label_sort[i] = i;
 
+    for(int i = 0; i < numOfLabels;i++){
         for(int j = i; j < numOfLabels;j++){
 
-            int area_j = states.at<int>(j, cv::CC_STAT_WIDTH) *
-                    states.at<int>(j, cv::CC_STAT_HEIGHT);
+            int area_i = states.at<int>(label_sort[i], cv::CC_STAT_WIDTH) *
+                    states.at<int>(label_sort[i], cv::CC_STAT_HEIGHT);
+            int area_j = states.at<int>(label_sort[j], cv::CC_STAT_WIDTH) *
+                    states.at<int>(label_sort[j], cv::CC_STAT_HEIGHT);
 
             if(area_i < area_j){
-                label_sort[i] = j;
+                int cur_i = label_sort[i];
+                label_sort[i] = label_sort[j];
+                label_sort[j] = cur_i;
             }
         }
     }
 
+    std::memcpy(&label_sort_zero[0], &label_sort[1], sizeof(int) * (numOfLabels-1));
+
+    int total_label_number = 0;
     int valide_label_number = 0;
-    int numberOfLabel = 0;
 
     if(numOfLabels > _max_label_num)
-        valide_label_number = _max_label_num;
+        total_label_number = _max_label_num;
     else
-        valide_label_number = numOfLabels;
+        total_label_number = numOfLabels;
 
-    for(int i = 0; i < valide_label_number; i++){
+    for(int i = 0; i < total_label_number; i++){
 
-        int area_i = states.at<int>(label_sort[i], cv::CC_STAT_WIDTH) *
-                states.at<int>(label_sort[i], cv::CC_STAT_HEIGHT);
+        int area_i = states.at<int>(label_sort_zero[i], cv::CC_STAT_WIDTH) *
+                states.at<int>(label_sort_zero[i], cv::CC_STAT_HEIGHT);
 
         if(area_i > _label_max_size || area_i < _label_min_size){
             _rect_ary[i].width  = 0;
             _rect_ary[i].height = 0;
-            _rect_ary[i].left   = 0;
-            _rect_ary[i].top    = 0;
+            _rect_ary[i].x      = 0;
+            _rect_ary[i].y      = 0;
             continue;
         }
         else{
-            _rect_ary[i].width  = states.at<int>(i, cv::CC_STAT_WIDTH);
-            _rect_ary[i].height = states.at<int>(i, cv::CC_STAT_HEIGHT);
-            _rect_ary[i].left   = states.at<int>(i, cv::CC_STAT_LEFT);
-            _rect_ary[i].top    = states.at<int>(i, cv::CC_STAT_TOP);
-            numberOfLabel++;
+            _rect_ary[i].width  = states.at<int>(label_sort_zero[i], cv::CC_STAT_WIDTH);
+            _rect_ary[i].height = states.at<int>(label_sort_zero[i], cv::CC_STAT_HEIGHT);
+            _rect_ary[i].x      = states.at<int>(label_sort_zero[i], cv::CC_STAT_LEFT);
+            _rect_ary[i].y      = states.at<int>(label_sort_zero[i], cv::CC_STAT_TOP);
+            valide_label_number++;
         }
     }
 
     delete[] label_sort;
+    delete[] label_sort_zero;
 
-    if(numberOfLabel == 0)
+    if(valide_label_number == 0)
         return false;
     else
-        _label_number = numberOfLabel;
+        _label_number = valide_label_number;
 
     return true;
 }

@@ -1,11 +1,16 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+
+#include <QString>
+
 #include "../CLabel/CLabel.h"
 
 #define TRAFFIC_SIGNAL_NUMBER 4
 
-#define LABELIMAGE_SIZE_MAX 40*40
-#define LABELIMAGE_SIZE_MIN 10*10
+#define LABELIMAGE_SIZE_MAX 400*400
+#define LABELIMAGE_SIZE_MIN 20*20
 
 #define NUMBER_OF_LABELS 5
 struct HSV_AVERAGE{
