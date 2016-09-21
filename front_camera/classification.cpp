@@ -83,6 +83,7 @@ cv::Mat Classifier_segnet::Predict(const cv::Mat& img) {
 	int Bicyclist[3]={0,128,192};
     int DummyCar[3]={255,255,255};
     int Fence[3]={64,64,128};
+    int Unknown[3]={0,0,0};
 
 	label.push_back(Sky);
 	label.push_back(Building);
@@ -97,36 +98,65 @@ cv::Mat Classifier_segnet::Predict(const cv::Mat& img) {
 	label.push_back(Bicyclist);
     label.push_back(DummyCar);
     label.push_back(Fence);
+    label.push_back(Unknown);
 
 
 	cv::Mat result_img(input_geometry_.height,input_geometry_.width,CV_8UC3);
 
-
+    cv::Mat prob_max = cv::Mat::zeros(input_geometry_.height,input_geometry_.width,CV_32FC2);
 	cv::Mat max_value(input_geometry_.height,input_geometry_.width,CV_32FC1);
-	for(int channel=0;channel<prob->channels();channel++)
-	{
-	  cv::Mat prob_f(input_geometry_.height,input_geometry_.width,CV_32FC1,prob_addr);
-	  cv::Mat prob_single_channel(input_geometry_.height,input_geometry_.width,CV_8UC3);
-	  for(int x=0;x<prob_f.size().width;x++)
-	  {
 
-		  for(int y=0;y<prob_f.size().height;y++)
-		  {
-			  if(prob_f.at<float>(y,x)>THRES_NUM)
-			  {
-				  prob_single_channel.at<cv::Vec3b>(y,x)[0] = label.at(channel)[2];
-				  prob_single_channel.at<cv::Vec3b>(y,x)[1] = label.at(channel)[1];
-				  prob_single_channel.at<cv::Vec3b>(y,x)[2] = label.at(channel)[0];
+    for(int channel=0;channel<prob->channels();channel++)
+    {
+      cv::Mat prob_f(input_geometry_.height,input_geometry_.width,CV_32FC1,prob_addr);
+      cv::Mat prob_single_channel(input_geometry_.height,input_geometry_.width,CV_8UC3);
+      for(int x=0;x<prob_f.size().width;x++)
+      {
 
-				  result_img.at<cv::Vec3b>(y,x)[0] = label.at(channel)[2];
-				  result_img.at<cv::Vec3b>(y,x)[1] = label.at(channel)[1];
-				  result_img.at<cv::Vec3b>(y,x)[2] = label.at(channel)[0];
-			  }
-		  }
+          for(int y=0;y<prob_f.size().height;y++)
+          {
+              if (prob_f.at<float>(y,x) > prob_max.at<cv::Vec2f>(y,x)[0])
+              {
+                  prob_max.at<cv::Vec2f>(y,x)[0] = prob_f.at<float>(y,x);
+                  prob_max.at<cv::Vec2f>(y,x)[1] = channel;
+              }
+              if(channel == prob->channels()-1)
+              {
+                  result_img.at<cv::Vec3b>(y,x)[0] = label.at(prob_max.at<cv::Vec2f>(y,x)[1])[2];
+                  result_img.at<cv::Vec3b>(y,x)[1] = label.at(prob_max.at<cv::Vec2f>(y,x)[1])[1];
+                  result_img.at<cv::Vec3b>(y,x)[2] = label.at(prob_max.at<cv::Vec2f>(y,x)[1])[0];
+              }
+          }
 
-	  }
-	  prob_addr += input_geometry_.width*input_geometry_.height;
-	}
+      }
+      prob_addr += input_geometry_.width*input_geometry_.height;
+    }
+
+
+//	for(int channel=0;channel<prob->channels();channel++)
+//	{
+//	  cv::Mat prob_f(input_geometry_.height,input_geometry_.width,CV_32FC1,prob_addr);
+//	  cv::Mat prob_single_channel(input_geometry_.height,input_geometry_.width,CV_8UC3);
+//	  for(int x=0;x<prob_f.size().width;x++)
+//	  {
+
+//		  for(int y=0;y<prob_f.size().height;y++)
+//		  {
+//			  if(prob_f.at<float>(y,x)>THRES_NUM)
+//			  {
+//				  prob_single_channel.at<cv::Vec3b>(y,x)[0] = label.at(channel)[2];
+//				  prob_single_channel.at<cv::Vec3b>(y,x)[1] = label.at(channel)[1];
+//				  prob_single_channel.at<cv::Vec3b>(y,x)[2] = label.at(channel)[0];
+
+//				  result_img.at<cv::Vec3b>(y,x)[0] = label.at(channel)[2];
+//				  result_img.at<cv::Vec3b>(y,x)[1] = label.at(channel)[1];
+//				  result_img.at<cv::Vec3b>(y,x)[2] = label.at(channel)[0];
+//			  }
+//		  }
+
+//	  }
+//	  prob_addr += input_geometry_.width*input_geometry_.height;
+//	}
 
 	return result_img;
 
