@@ -186,7 +186,7 @@ public:
         line_2->setFrameShadow(QFrame::Sunken);
         traffic_signal = new QGroupBox(frontcamera_dlg);
         traffic_signal->setObjectName(QStringLiteral("traffic_signal"));
-        traffic_signal->setGeometry(QRect(630, 20, 291, 201));
+        traffic_signal->setGeometry(QRect(630, 20, 251, 201));
         signal_view = new QGraphicsView(traffic_signal);
         signal_view->setObjectName(QStringLiteral("signal_view"));
         signal_view->setGeometry(QRect(10, 60, 161, 51));

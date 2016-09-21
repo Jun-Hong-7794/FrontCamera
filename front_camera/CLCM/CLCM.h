@@ -25,7 +25,9 @@ public:
                        const std::string& chan,
                        const eurecar::vision_lane* msg)
     {
-        //m_rbuf = rbuf;
+        if(rbuf == 0)
+            std::cout << "rbuf is empty!" << std::endl;
+
         m_chan = chan;
         memcpy(&m_vision_lane,msg,sizeof(eurecar::vision_lane));
     }

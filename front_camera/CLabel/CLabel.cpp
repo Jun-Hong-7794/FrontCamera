@@ -60,6 +60,90 @@ cv::Rect CLabel::Image_Label(cv::Mat _img_org, int _label_class){
     return cv::Rect(left,top,width,height);
 }
 
+bool CLabel::Image_Label(cv::Mat _img_org, int _label_class,
+                 ROI_RECT *_rect_ary, int _max_label_num, int &_label_number,
+                 int _label_max_size, int _label_min_size){
+
+    cv::Mat org_img;
+    cv::Mat bin_img;
+
+    _img_org.copyTo(org_img);
+
+    bin_img = Binary_Scale_Down(org_img, _label_class);
+
+    if(bin_img.rows == 0 || bin_img.cols == 0)
+        return false;
+
+    cv::cvtColor(bin_img,bin_img,cv::COLOR_BGR2GRAY);
+    cv::Mat labels_img,states,centroids;
+    cv::Mat kernel(3,3,CV_8UC1,cv::Scalar(255));
+
+    cv::erode(bin_img,bin_img,kernel);
+    cv::erode(bin_img,bin_img,kernel);
+
+    int numOfLabels = cv::connectedComponentsWithStats(bin_img,labels_img,
+                                                       states,centroids);
+
+    if(numOfLabels == 0)
+        return false;
+
+    int *label_sort = new int[numOfLabels];
+
+    for(int i = 1; i < numOfLabels;i++){
+
+        int area_i = states.at<int>(i, cv::CC_STAT_WIDTH) *
+                states.at<int>(i, cv::CC_STAT_HEIGHT);
+
+        for(int j = i; j < numOfLabels;j++){
+
+            int area_j = states.at<int>(j, cv::CC_STAT_WIDTH) *
+                    states.at<int>(j, cv::CC_STAT_HEIGHT);
+
+            if(area_i < area_j){
+                label_sort[i] = j;
+            }
+        }
+    }
+
+    int valide_label_number = 0;
+    int numberOfLabel = 0;
+
+    if(numOfLabels > _max_label_num)
+        valide_label_number = _max_label_num;
+    else
+        valide_label_number = numOfLabels;
+
+    for(int i = 0; i < valide_label_number; i++){
+
+        int area_i = states.at<int>(label_sort[i], cv::CC_STAT_WIDTH) *
+                states.at<int>(label_sort[i], cv::CC_STAT_HEIGHT);
+
+        if(area_i > _label_max_size || area_i < _label_min_size){
+            _rect_ary[i].width  = 0;
+            _rect_ary[i].height = 0;
+            _rect_ary[i].left   = 0;
+            _rect_ary[i].top    = 0;
+            continue;
+        }
+        else{
+            _rect_ary[i].width  = states.at<int>(i, cv::CC_STAT_WIDTH);
+            _rect_ary[i].height = states.at<int>(i, cv::CC_STAT_HEIGHT);
+            _rect_ary[i].left   = states.at<int>(i, cv::CC_STAT_LEFT);
+            _rect_ary[i].top    = states.at<int>(i, cv::CC_STAT_TOP);
+            numberOfLabel++;
+        }
+    }
+
+    delete[] label_sort;
+
+    if(numberOfLabel == 0)
+        return false;
+    else
+        _label_number = numberOfLabel;
+
+    return true;
+}
+
 cv::Mat CLabel::Binary_Scale_Down(cv::Mat _img_org, unsigned int _label_class){
 
     unsigned char *img_data = (unsigned char*)_img_org.data;

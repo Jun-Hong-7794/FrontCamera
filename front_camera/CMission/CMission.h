@@ -3,6 +3,11 @@
 #include "../CLabel/CLabel.h"
 
 #define TRAFFIC_SIGNAL_NUMBER 4
+
+#define LABELIMAGE_SIZE_MAX 40*40
+#define LABELIMAGE_SIZE_MIN 10*10
+
+#define NUMBER_OF_LABELS 5
 struct HSV_AVERAGE{
     int h_avg;
     int s_avg;
