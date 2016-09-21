@@ -117,10 +117,10 @@ bool CLabel::Image_Label(cv::Mat _img_org, int _label_class,
     int total_label_number = 0;
     int valide_label_number = 0;
 
-    if(numOfLabels > _max_label_num)
+    if((numOfLabels - 1) > _max_label_num)
         total_label_number = _max_label_num;
     else
-        total_label_number = numOfLabels;
+        total_label_number = numOfLabels - 1;
 
     for(int i = 0; i < total_label_number; i++){
 

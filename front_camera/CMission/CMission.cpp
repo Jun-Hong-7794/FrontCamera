@@ -119,9 +119,14 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,int &
                 continue;
 
             rst_img_ary[i] = _org_image(roi_rect[i]);
-            cv::imshow(QString::number(i).toStdString(),rst_img_ary[i]);
+            //cv::imshow(QString::number(i).toStdString(),rst_img_ary[i]);
         }
     }
+
+    if(roi_rect[0].height == 0)
+        return false;
+    else
+        _rst_img = _org_image(roi_rect[0]);
 
     _sign_rst = 0;
 
