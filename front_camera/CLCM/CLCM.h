@@ -41,8 +41,11 @@ class CLCM{
 
 private:
     bool fl_log_play_lcm_init;
+    bool fl_front_cam_lcm_init;
 
     cv::String m_log_image_dir;
+
+    lcm::LCM m_front_cam_lcm;
 
     lcm::LCM m_log_play_lcm;
     Log_Handler m_log_handler_obj;

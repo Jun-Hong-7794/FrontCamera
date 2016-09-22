@@ -192,6 +192,7 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
                 QRectF(0, 0, normal_car_view->geometry().width(), normal_car_view->geometry().height()), 0);
 
     connect(bt_start_stop,SIGNAL(clicked()),this,SLOT(Click_Start_Button()));
+    connect(bt_lcm_data_send,SIGNAL(clicked()),this,SLOT(Click_LCM_Data_Send()));
     connect(bt_file_dialog,SIGNAL(clicked()),this,SLOT(File_Dialog()));
     connect(this,SIGNAL(Get_Image_Capture_Mode(unsigned int,unsigned int,QString)),
             mp_img_thread,SLOT(Set_Image_Capture_Mode(unsigned int,unsigned int,QString)));
@@ -347,6 +348,36 @@ void FRONT_CAMERA::Click_Start_Button(){
     }
 
     return;
+}
+
+void FRONT_CAMERA::Click_LCM_Data_Send(){
+
+    m_front_cam_data.car_distance += 0.1;
+
+    if(m_front_cam_data.fl_car == 0)
+        m_front_cam_data.fl_car = 1;
+    else
+        m_front_cam_data.fl_car = 0;
+
+    if(m_front_cam_data.fl_pedestrian == 0)
+        m_front_cam_data.fl_pedestrian = 1;
+    else
+        m_front_cam_data.fl_pedestrian = 0;
+
+    m_front_cam_data.sign += 1;
+
+    if(m_front_cam_data.sign > 5)
+        m_front_cam_data.sign = 1;
+
+    m_front_cam_data.traffic_signal += 1;
+
+    if(m_front_cam_data.traffic_signal > 5)
+        m_front_cam_data.traffic_signal = 1;
+
+
+    m_front_cam_data.timestamp += 10;
+
+    m_front_cam_lcm.LCM_Publish(m_front_cam_data);
 }
 
 void FRONT_CAMERA::Set_Image(cv::Mat _img){

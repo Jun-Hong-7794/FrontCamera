@@ -3,10 +3,23 @@
 CLCM::CLCM(){
 
     fl_log_play_lcm_init = false;
+    fl_front_cam_lcm_init = false;
+
 }
 
 CLCM::~CLCM(){
 
+}
+
+void CLCM::LCM_Publish(eurecar::vision_front_cam _front_cam_rst){
+    if(!fl_front_cam_lcm_init){
+        if(!m_front_cam_lcm.good()){
+            std::cout << "front cam lcm init fail!" << std::endl;
+            return;
+        }
+    }
+    m_front_cam_lcm.publish("vision_front_cam", &_front_cam_rst);
+    return;
 }
 
 void CLCM::LCM_Log_Subscribe(QString _path, cv::Mat &_img){

@@ -224,7 +224,7 @@
     <rect>
      <x>0</x>
      <y>780</y>
-     <width>1031</width>
+     <width>1151</width>
      <height>16</height>
     </rect>
    </property>
@@ -612,7 +612,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -638,7 +638,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -702,6 +702,19 @@
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="bt_lcm_data_send">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>800</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>LCM Data Send</string>
    </property>
   </widget>
  </widget>

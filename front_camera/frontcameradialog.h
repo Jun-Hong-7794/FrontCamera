@@ -171,9 +171,14 @@ private:
     CSaveImg m_save_sig_image;//sign image
     CSaveImg m_save_ped_image;//pedestrian image
 
+private://LCM
+    CLCM m_front_cam_lcm;
+    eurecar::vision_front_cam m_front_cam_data;
+
 private slots:
     void Click_Start_Button();
     void File_Dialog();
+    void Click_LCM_Data_Send();
 
 public slots:
     void Set_Image(cv::Mat);
