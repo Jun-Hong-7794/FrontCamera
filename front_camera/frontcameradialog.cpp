@@ -34,7 +34,6 @@
      if(m_capture_mode == 5){
          m_log_play_lcm.LCM_Log_Subscribe(m_lcm_log_path,_img);
      }
-
  }
 
 void CImage_Thread::Set_Image_Capture_Mode(unsigned int _capture_mode,unsigned int _save_mode, QString _path){
@@ -57,7 +56,6 @@ void CImage_Thread::Set_Image_Capture_Mode(unsigned int _capture_mode,unsigned i
         m_avi_path = "Not Selected";
         m_lcm_log_path = "Not Selected";
     }
-
 }
 
 void CImage_Thread::Start_Img_Thread(){
