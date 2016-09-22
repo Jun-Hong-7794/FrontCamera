@@ -437,15 +437,22 @@ void FRONT_CAMERA::Mission(){
     if(ck_mission_sign->isChecked()){
         cv::Mat crop_sign;
         int rst = 0;
+        QString str_rst = "";
 
         m_cmission.Mission_Traffic_sign(m_orgimg, m_segment_img,
                                         rst, crop_sign, ck_sign_img_log->isChecked(), &m_save_sig_image);
 
         Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view);
 
-//        if(ck_sign_img_log->isChecked()){
-//            m_save_sig_image.Save_Image(crop_sign);
-//        }
+        if(rst == 0) str_rst = "Unknown";
+        else if(rst == 1) str_rst = "P1";
+        else if(rst == 2) str_rst = "P2";
+        else if(rst == 3) str_rst = "P3";
+        else if(rst == 4) str_rst = "P4";
+        else if(rst == 5) str_rst = "Stop Sign";
+        else str_rst = "Unknown";
+
+        ed_traffic_sign->setText(str_rst);
     }
 
     if(ck_mission_pedestrian->isChecked()){

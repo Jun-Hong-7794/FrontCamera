@@ -7,6 +7,7 @@
 
 #include "../CLabel/CLabel.h"
 #include "CSaveImg/CSaveImg.h"
+#include "CLenet/CLenet.hpp"
 
 #define TRAFFIC_SIGNAL_NUMBER 4
 
@@ -29,6 +30,15 @@ public:
 private:
     CLabel m_clabel;
 
+private://Lenet for traffic sign(P1 ~ P4 & Stop sign)
+    bool fl_lenet_init;
+    CLenet m_lenet;
+
+    QString m_model_file;
+    QString m_weight_file;
+    QString m_mean_file;
+    QString m_label_file;
+
 private:
     cv::Mat m_pedestrian_prv_img;
 
@@ -40,6 +50,8 @@ public:
 
     bool Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
                               int &_sign_rst,cv::Mat &_rst_img, bool _fl_save = false, CSaveImg *_csave = 0);
+
+    int Lenet_Analisys(cv::Mat _img, float &_prob);
 
     bool Mission_Pedestrian(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
     void Image_Subtract(cv::Mat _img_1, cv::Mat _img_2, cv::Mat &_img_rst);

@@ -63,7 +63,7 @@ public:
     QLineEdit *ed_signal;
     QGroupBox *groupBox_3;
     QGraphicsView *sign_view;
-    QLineEdit *lineEdit_2;
+    QLineEdit *ed_traffic_sign;
     QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_5;
@@ -233,10 +233,10 @@ public:
         sign_view = new QGraphicsView(groupBox_3);
         sign_view->setObjectName(QStringLiteral("sign_view"));
         sign_view->setGeometry(QRect(10, 60, 101, 81));
-        lineEdit_2 = new QLineEdit(groupBox_3);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(120, 60, 81, 27));
-        lineEdit_2->setReadOnly(true);
+        ed_traffic_sign = new QLineEdit(groupBox_3);
+        ed_traffic_sign->setObjectName(QStringLiteral("ed_traffic_sign"));
+        ed_traffic_sign->setGeometry(QRect(120, 60, 81, 27));
+        ed_traffic_sign->setReadOnly(true);
         layoutWidget3 = new QWidget(groupBox_3);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
         layoutWidget3->setGeometry(QRect(10, 30, 214, 24));

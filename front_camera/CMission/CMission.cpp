@@ -2,6 +2,15 @@
 
 CMission::CMission(){
 
+    fl_lenet_init = false;
+
+    m_model_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/deploy.prototxt";
+    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/Training/lenet_sign_iter_20000.caffemodel";
+    m_mean_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/data/lenet_sign/lenet_sign_train_mean.binaryproto";
+    m_label_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/label_file.txt";
+
+    m_lenet.net_initialize(m_model_file.toUtf8().constData(),m_weight_file.toUtf8().constData(),
+                           m_mean_file.toUtf8().constData(),m_label_file.toUtf8().constData());
 }
 CMission::~CMission(){
 
@@ -100,7 +109,6 @@ void CMission::HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg){
 
 bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
                                     int &_sign_rst,cv::Mat &_rst_img, bool _fl_save, CSaveImg *_csave){
-
     int numberOfLabel = 0;
     cv::Rect roi_rect[NUMBER_OF_LABELS];
     cv::Mat* rst_img_ary = 0;
@@ -114,6 +122,10 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
 
     else{
         rst_img_ary = new cv::Mat[numberOfLabel];
+
+        float prob_max = 0.0;
+        float prob_sign = 0.0;
+
         for(int i = 0; i < numberOfLabel; i++){
 
             if(roi_rect[i].height == 0)
@@ -123,7 +135,13 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
 
             if(_fl_save)
                 _csave->Save_Image(rst_img_ary[i],-1);
-            //cv::imshow(QString::number(i).toStdString(),rst_img_ary[i]);
+
+            int lenet_rst = Lenet_Analisys(rst_img_ary[i],prob_sign);
+
+            if(lenet_rst != 0){
+                if(prob_max < prob_sign)
+                    _sign_rst = lenet_rst;
+            }
         }
     }
 
@@ -132,12 +150,33 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
     else
         _rst_img = _org_image(roi_rect[0]);
 
-    _sign_rst = 0;
 
     if(rst_img_ary != 0)
         delete[] rst_img_ary;
 
     return true;
+}
+
+int CMission::Lenet_Analisys(cv::Mat _img, float &_prob){
+
+    std::vector<Prediction> prediction;
+    prediction = m_lenet.Classify(_img);
+
+    std::string classify_rst = prediction[0].first;
+    _prob = prediction[0].second;
+
+    if(classify_rst == "P1")
+        return 1;
+    else if(classify_rst == "P2")
+        return 2;
+    else if(classify_rst == "P3")
+        return 3;
+    else if(classify_rst == "P4")
+        return 4;
+    else if(classify_rst == "Stop")
+        return 5;
+
+    return 0;
 }
 
 bool CMission::Mission_Pedestrian(cv::Mat _org_image, cv::Mat _seg_image,int &_pedestrian_rst,cv::Mat &_rst_img){

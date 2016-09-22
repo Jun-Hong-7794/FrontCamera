@@ -365,7 +365,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="ed_traffic_sign">
     <property name="geometry">
      <rect>
       <x>120</x>
