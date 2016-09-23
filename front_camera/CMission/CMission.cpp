@@ -110,6 +110,7 @@ void CMission::HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg){
 bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
                                     int &_sign_rst,cv::Mat &_rst_img, bool _fl_save, CSaveImg *_csave){
     int numberOfLabel = 0;
+    int label_index = 0;
     cv::Rect roi_rect[NUMBER_OF_LABELS];
     cv::Mat* rst_img_ary = 0;
 
@@ -117,9 +118,10 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
 
     if(!m_clabel.Image_Label(_seg_image, LABEL_SIGN,
                          roi_rect, NUMBER_OF_LABELS, numberOfLabel,
-                         LABELIMAGE_SIZE_MAX, LABELIMAGE_SIZE_MIN))
+                         LABELIMAGE_SIZE_MAX, LABELIMAGE_SIZE_MIN)){
+        _sign_rst = 0;
         return false;
-
+    }
     else{
         rst_img_ary = new cv::Mat[numberOfLabel];
 
@@ -139,16 +141,19 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
             int lenet_rst = Lenet_Analisys(rst_img_ary[i],prob_sign);
 
             if(lenet_rst != 0){
-                if(prob_max < prob_sign)
+                if(prob_max < prob_sign){
                     _sign_rst = lenet_rst;
+                    prob_max  = prob_sign;
+                    label_index = i;
+                }
             }
         }
     }
 
-    if(roi_rect[0].height == 0)
+    if(roi_rect[label_index].height == 0)
         return false;
     else
-        _rst_img = _org_image(roi_rect[0]);
+        _rst_img = _org_image(roi_rect[label_index]);
 
 
     if(rst_img_ary != 0)

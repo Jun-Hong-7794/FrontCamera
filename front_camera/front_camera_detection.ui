@@ -707,7 +707,7 @@
   <widget class="QPushButton" name="bt_lcm_data_send">
    <property name="geometry">
     <rect>
-     <x>790</x>
+     <x>640</x>
      <y>800</y>
      <width>211</width>
      <height>41</height>
@@ -715,6 +715,38 @@
    </property>
    <property name="text">
     <string>LCM Data Send</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ed_fps">
+   <property name="geometry">
+    <rect>
+     <x>1072</x>
+     <y>820</y>
+     <width>81</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="frame">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>1076</x>
+     <y>800</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Frame/sec</string>
    </property>
   </widget>
  </widget>

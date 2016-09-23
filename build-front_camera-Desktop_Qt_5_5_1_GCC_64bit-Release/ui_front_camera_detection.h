@@ -101,6 +101,8 @@ public:
     QFrame *line_4;
     QFrame *line_5;
     QPushButton *bt_lcm_data_send;
+    QLineEdit *ed_fps;
+    QLabel *label_10;
 
     void setupUi(QWidget *frontcamera_dlg)
     {
@@ -370,7 +372,16 @@ public:
         line_5->setFrameShadow(QFrame::Sunken);
         bt_lcm_data_send = new QPushButton(frontcamera_dlg);
         bt_lcm_data_send->setObjectName(QStringLiteral("bt_lcm_data_send"));
-        bt_lcm_data_send->setGeometry(QRect(790, 800, 211, 41));
+        bt_lcm_data_send->setGeometry(QRect(640, 800, 211, 41));
+        ed_fps = new QLineEdit(frontcamera_dlg);
+        ed_fps->setObjectName(QStringLiteral("ed_fps"));
+        ed_fps->setGeometry(QRect(1072, 820, 81, 27));
+        ed_fps->setLayoutDirection(Qt::RightToLeft);
+        ed_fps->setFrame(false);
+        ed_fps->setReadOnly(true);
+        label_10 = new QLabel(frontcamera_dlg);
+        label_10->setObjectName(QStringLiteral("label_10"));
+        label_10->setGeometry(QRect(1076, 800, 71, 20));
 
         retranslateUi(frontcamera_dlg);
 
@@ -416,6 +427,7 @@ public:
         label_9->setText(QApplication::translate("frontcamera_dlg", "Normal Car", 0));
         ck_normal_car_img_log->setText(QApplication::translate("frontcamera_dlg", "Image Log", 0));
         bt_lcm_data_send->setText(QApplication::translate("frontcamera_dlg", "LCM Data Send", 0));
+        label_10->setText(QApplication::translate("frontcamera_dlg", "Frame/sec", 0));
     } // retranslateUi
 
 };

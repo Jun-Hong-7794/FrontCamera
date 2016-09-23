@@ -42,6 +42,9 @@
 ///////////////////Save Image////////////////////////
 #include "CSaveImg/CSaveImg.h"
 
+#include <sys/time.h>
+
+
 #define SAVE_MODE_ORIGINAL              0x000001
 #define SAVE_MODE_SEGMENT               0x000010
 #define SAVE_MODE_TRAFFIC_SIGNAL        0x000100
@@ -179,6 +182,21 @@ private slots:
     void Click_Start_Button();
     void File_Dialog();
     void Click_LCM_Data_Send();
+
+private:
+    int m_frame_count;
+
+    double m_frame_rate;
+    double m_fps_current_time;
+    double m_fps_previous_time;
+
+    clock_t m_start_ticks;
+    clock_t m_end_ticks;
+    clock_t m_delta_ticks;
+    clock_t m_elapsed_ticks;
+public:
+    void fps_start();
+    double  fps_end();
 
 public slots:
     void Set_Image(cv::Mat);

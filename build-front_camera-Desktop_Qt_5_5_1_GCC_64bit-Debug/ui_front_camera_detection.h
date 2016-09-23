@@ -63,7 +63,7 @@ public:
     QLineEdit *ed_signal;
     QGroupBox *groupBox_3;
     QGraphicsView *sign_view;
-    QLineEdit *lineEdit_2;
+    QLineEdit *ed_traffic_sign;
     QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_5;
@@ -89,17 +89,20 @@ public:
     QGroupBox *groupBox_6;
     QGraphicsView *dummy_car_view;
     QGraphicsView *normal_car_view;
-    QWidget *widget;
+    QWidget *layoutWidget7;
     QHBoxLayout *horizontalLayout_8;
     QLabel *label_8;
     QCheckBox *ck_dummy_car_img_log;
-    QWidget *widget1;
+    QWidget *layoutWidget8;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_9;
     QCheckBox *ck_normal_car_img_log;
     QFrame *line_3;
     QFrame *line_4;
     QFrame *line_5;
+    QPushButton *bt_lcm_data_send;
+    QLineEdit *ed_fps;
+    QLabel *label_10;
 
     void setupUi(QWidget *frontcamera_dlg)
     {
@@ -172,7 +175,7 @@ public:
         bt_file_dialog->setGeometry(QRect(380, 800, 211, 41));
         line = new QFrame(frontcamera_dlg);
         line->setObjectName(QStringLiteral("line"));
-        line->setGeometry(QRect(0, 780, 1031, 16));
+        line->setGeometry(QRect(0, 780, 1151, 16));
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
         ed_image_source = new QLineEdit(frontcamera_dlg);
@@ -232,10 +235,10 @@ public:
         sign_view = new QGraphicsView(groupBox_3);
         sign_view->setObjectName(QStringLiteral("sign_view"));
         sign_view->setGeometry(QRect(10, 60, 101, 81));
-        lineEdit_2 = new QLineEdit(groupBox_3);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(120, 60, 81, 27));
-        lineEdit_2->setReadOnly(true);
+        ed_traffic_sign = new QLineEdit(groupBox_3);
+        ed_traffic_sign->setObjectName(QStringLiteral("ed_traffic_sign"));
+        ed_traffic_sign->setGeometry(QRect(120, 60, 81, 27));
+        ed_traffic_sign->setReadOnly(true);
         layoutWidget3 = new QWidget(groupBox_3);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
         layoutWidget3->setGeometry(QRect(10, 30, 214, 24));
@@ -320,34 +323,34 @@ public:
         normal_car_view = new QGraphicsView(groupBox_6);
         normal_car_view->setObjectName(QStringLiteral("normal_car_view"));
         normal_car_view->setGeometry(QRect(260, 60, 211, 191));
-        widget = new QWidget(groupBox_6);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 30, 188, 24));
-        horizontalLayout_8 = new QHBoxLayout(widget);
+        layoutWidget7 = new QWidget(groupBox_6);
+        layoutWidget7->setObjectName(QStringLiteral("layoutWidget7"));
+        layoutWidget7->setGeometry(QRect(10, 30, 188, 24));
+        horizontalLayout_8 = new QHBoxLayout(layoutWidget7);
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
         horizontalLayout_8->setContentsMargins(0, 0, 0, 0);
-        label_8 = new QLabel(widget);
+        label_8 = new QLabel(layoutWidget7);
         label_8->setObjectName(QStringLiteral("label_8"));
 
         horizontalLayout_8->addWidget(label_8);
 
-        ck_dummy_car_img_log = new QCheckBox(widget);
+        ck_dummy_car_img_log = new QCheckBox(layoutWidget7);
         ck_dummy_car_img_log->setObjectName(QStringLiteral("ck_dummy_car_img_log"));
 
         horizontalLayout_8->addWidget(ck_dummy_car_img_log);
 
-        widget1 = new QWidget(groupBox_6);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(260, 30, 186, 24));
-        horizontalLayout_9 = new QHBoxLayout(widget1);
+        layoutWidget8 = new QWidget(groupBox_6);
+        layoutWidget8->setObjectName(QStringLiteral("layoutWidget8"));
+        layoutWidget8->setGeometry(QRect(260, 30, 186, 24));
+        horizontalLayout_9 = new QHBoxLayout(layoutWidget8);
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
         horizontalLayout_9->setContentsMargins(0, 0, 0, 0);
-        label_9 = new QLabel(widget1);
+        label_9 = new QLabel(layoutWidget8);
         label_9->setObjectName(QStringLiteral("label_9"));
 
         horizontalLayout_9->addWidget(label_9);
 
-        ck_normal_car_img_log = new QCheckBox(widget1);
+        ck_normal_car_img_log = new QCheckBox(layoutWidget8);
         ck_normal_car_img_log->setObjectName(QStringLiteral("ck_normal_car_img_log"));
 
         horizontalLayout_9->addWidget(ck_normal_car_img_log);
@@ -367,6 +370,18 @@ public:
         line_5->setGeometry(QRect(630, 390, 521, 21));
         line_5->setFrameShape(QFrame::HLine);
         line_5->setFrameShadow(QFrame::Sunken);
+        bt_lcm_data_send = new QPushButton(frontcamera_dlg);
+        bt_lcm_data_send->setObjectName(QStringLiteral("bt_lcm_data_send"));
+        bt_lcm_data_send->setGeometry(QRect(640, 800, 211, 41));
+        ed_fps = new QLineEdit(frontcamera_dlg);
+        ed_fps->setObjectName(QStringLiteral("ed_fps"));
+        ed_fps->setGeometry(QRect(1072, 820, 81, 27));
+        ed_fps->setLayoutDirection(Qt::RightToLeft);
+        ed_fps->setFrame(false);
+        ed_fps->setReadOnly(true);
+        label_10 = new QLabel(frontcamera_dlg);
+        label_10->setObjectName(QStringLiteral("label_10"));
+        label_10->setGeometry(QRect(1076, 800, 71, 20));
 
         retranslateUi(frontcamera_dlg);
 
@@ -411,6 +426,8 @@ public:
         ck_dummy_car_img_log->setText(QApplication::translate("frontcamera_dlg", "Image Log", 0));
         label_9->setText(QApplication::translate("frontcamera_dlg", "Normal Car", 0));
         ck_normal_car_img_log->setText(QApplication::translate("frontcamera_dlg", "Image Log", 0));
+        bt_lcm_data_send->setText(QApplication::translate("frontcamera_dlg", "LCM Data Send", 0));
+        label_10->setText(QApplication::translate("frontcamera_dlg", "Frame/sec", 0));
     } // retranslateUi
 
 };

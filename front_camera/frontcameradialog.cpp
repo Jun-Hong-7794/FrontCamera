@@ -154,13 +154,22 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
     qRegisterMetaType<cv::Mat>("cv::Mat");
 
     fl_stream = false;
+
     mp_segnet = 0;
 
     m_save_mode = 0;
     m_capture_mode = 0;
+    m_fps_current_time = 0.0;
+    m_fps_previous_time = 0.0;
 
-//    m_model_file  = "/home/jun/caffe-segnet/examples/segnet/segnet_inference_input.prototxt";
-//    m_weight_file = "/home/jun/caffe-segnet/examples/segnet/Inference/test_weights_front_camera.caffemodel";
+    m_start_ticks = 0;
+    m_end_ticks = 0;
+    m_delta_ticks = 0;
+    m_elapsed_ticks = 0;
+    m_frame_count = 0;
+
+    m_frame_rate = 0.0;
+
     m_model_file  = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/segnet_inference_input.prototxt";
     m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/test_weights.caffemodel";
 
@@ -191,6 +200,8 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
     mp_mission_qgraphic_normal_car= new QGraphicsScene(
                 QRectF(0, 0, normal_car_view->geometry().width(), normal_car_view->geometry().height()), 0);
 
+    ed_fps->setText("0");
+
     connect(bt_start_stop,SIGNAL(clicked()),this,SLOT(Click_Start_Button()));
     connect(bt_lcm_data_send,SIGNAL(clicked()),this,SLOT(Click_LCM_Data_Send()));
     connect(bt_file_dialog,SIGNAL(clicked()),this,SLOT(File_Dialog()));
@@ -198,6 +209,35 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
             mp_img_thread,SLOT(Set_Image_Capture_Mode(unsigned int,unsigned int,QString)));
     connect(mp_img_thread,SIGNAL(Get_Image(cv::Mat)),this,SLOT(Set_Image(cv::Mat)),Qt::QueuedConnection);
 
+}
+
+double clockToMillisecnods(clock_t _ticks){
+
+    return (_ticks/(double)CLOCKS_PER_SEC)*1000.0;
+}
+
+void FRONT_CAMERA::fps_start(){
+
+    m_start_ticks = clock();
+}
+
+double FRONT_CAMERA::fps_end(){
+
+    m_end_ticks = clock();
+
+    m_delta_ticks = m_end_ticks - m_start_ticks;
+    m_elapsed_ticks += m_delta_ticks;
+    m_frame_count++;
+
+    if(clockToMillisecnods(m_elapsed_ticks) > 1000.0){
+
+        m_frame_rate = (double)m_frame_count*0.5 + m_frame_rate*0.5;
+
+        m_frame_count = 0;
+        m_elapsed_ticks = 0;
+    }
+
+    return m_frame_rate;
 }
 
 void FRONT_CAMERA::Click_Start_Button(){
@@ -344,6 +384,8 @@ void FRONT_CAMERA::Click_Start_Button(){
             m_save_ped_image.Close_Folder();
         }
 
+        ed_fps->setText("0");
+
         sleep(1);
     }
 
@@ -386,6 +428,9 @@ void FRONT_CAMERA::Set_Image(cv::Mat _img){
         mp_img_thread->Set_Segment_Flag(true);
         return;
     }
+
+    fps_start();
+
     m_orgimg = _img;
     cv::Size tmp_org_size;
 
@@ -403,7 +448,9 @@ void FRONT_CAMERA::Set_Image(cv::Mat _img){
 
     mp_img_thread->Set_Segment_Flag(true);
 
-    cv::waitKey(80);
+    cv::waitKey(10);
+
+    ed_fps->setText(QString::number(fps_end()));
 }
 
 void FRONT_CAMERA::Mission(){

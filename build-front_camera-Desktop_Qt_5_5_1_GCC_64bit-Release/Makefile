@@ -1208,6 +1208,7 @@ moc_frontcameradialog.cpp: ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidgets/QtWi
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime \
+		../front_camera/CMission/CLenet/CLenet.hpp \
 		../front_camera/CLCM/CLCM.h \
 		/usr/local/include/lcm/lcm-cpp.hpp \
 		/usr/local/include/lcm/lcm.h \
@@ -1869,6 +1870,7 @@ main.o: ../front_camera/main.cpp ../../../../Qt5.5.1/5.5/gcc_64/include/QtWidget
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime \
+		../front_camera/CMission/CLenet/CLenet.hpp \
 		../front_camera/CLCM/CLCM.h \
 		/usr/local/include/lcm/lcm-cpp.hpp \
 		/usr/local/include/lcm/lcm.h \
@@ -2672,6 +2674,7 @@ frontcameradialog.o: ../front_camera/frontcameradialog.cpp ../front_camera/front
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDir \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QTime \
 		../../../../Qt5.5.1/5.5/gcc_64/include/QtCore/QDateTime \
+		../front_camera/CMission/CLenet/CLenet.hpp \
 		../front_camera/CLCM/CLCM.h \
 		/usr/local/include/lcm/lcm-cpp.hpp \
 		/usr/local/include/lcm/lcm.h \
@@ -2826,7 +2829,132 @@ CMission.o: ../front_camera/CMission/CMission.cpp ../front_camera/CMission/CMiss
 		/usr/local/include/opencv2/video.hpp \
 		/usr/local/include/opencv2/video/tracking.hpp \
 		/usr/local/include/opencv2/video/background_segm.hpp \
-		/usr/local/include/opencv2/video/tracking_c.h
+		/usr/local/include/opencv2/video/tracking_c.h \
+		../front_camera/CMission/CLenet/CLenet.hpp \
+		../front_camera/classification.hpp \
+		../../../../caffe-segnet/include/caffe/caffe.hpp \
+		../../../../caffe-segnet/include/caffe/blob.hpp \
+		../../../../caffe-segnet/include/caffe/common.hpp \
+		../../../../caffe-segnet/include/caffe/util/device_alternate.hpp \
+		/usr/local/cuda/include/cublas_v2.h \
+		/usr/local/cuda/include/cublas_api.h \
+		/usr/local/cuda/include/driver_types.h \
+		/usr/local/cuda/include/host_defines.h \
+		/usr/local/cuda/include/cuComplex.h \
+		/usr/local/cuda/include/vector_types.h \
+		/usr/local/cuda/include/builtin_types.h \
+		/usr/local/cuda/include/device_types.h \
+		/usr/local/cuda/include/surface_types.h \
+		/usr/local/cuda/include/texture_types.h \
+		/usr/local/cuda/include/cuda_fp16.h \
+		/usr/local/cuda/include/library_types.h \
+		/usr/local/cuda/include/cuda.h \
+		/usr/local/cuda/include/cuda_runtime.h \
+		/usr/local/cuda/include/host_config.h \
+		/usr/local/cuda/include/channel_descriptor.h \
+		/usr/local/cuda/include/cuda_runtime_api.h \
+		/usr/local/cuda/include/cuda_device_runtime_api.h \
+		/usr/local/cuda/include/driver_functions.h \
+		/usr/local/cuda/include/vector_functions.h \
+		/usr/local/cuda/include/vector_functions.hpp \
+		/usr/local/cuda/include/device_functions.h \
+		/usr/local/cuda/include/device_functions.hpp \
+		/usr/local/cuda/include/device_atomic_functions.h \
+		/usr/local/cuda/include/device_atomic_functions.hpp \
+		/usr/local/cuda/include/device_double_functions.h \
+		/usr/local/cuda/include/device_double_functions.hpp \
+		/usr/local/cuda/include/sm_20_atomic_functions.h \
+		/usr/local/cuda/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda/include/sm_32_atomic_functions.h \
+		/usr/local/cuda/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda/include/sm_35_atomic_functions.h \
+		/usr/local/cuda/include/sm_60_atomic_functions.h \
+		/usr/local/cuda/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda/include/sm_20_intrinsics.h \
+		/usr/local/cuda/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda/include/sm_30_intrinsics.h \
+		/usr/local/cuda/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda/include/sm_32_intrinsics.h \
+		/usr/local/cuda/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda/include/sm_35_intrinsics.h \
+		/usr/local/cuda/include/surface_functions.h \
+		/usr/local/cuda/include/cuda_surface_types.h \
+		/usr/local/cuda/include/texture_fetch_functions.h \
+		/usr/local/cuda/include/cuda_texture_types.h \
+		/usr/local/cuda/include/texture_indirect_functions.h \
+		/usr/local/cuda/include/surface_indirect_functions.h \
+		/usr/local/cuda/include/common_functions.h \
+		/usr/local/cuda/include/math_functions.h \
+		/usr/local/cuda/include/math_constants.h \
+		/usr/local/cuda/include/device_functions_decls.h \
+		/usr/local/cuda/include/crt/func_macro.h \
+		/usr/local/cuda/include/math_functions.hpp \
+		/usr/local/cuda/include/math_functions_dbl_ptx3.h \
+		/usr/local/cuda/include/math_functions_dbl_ptx3.hpp \
+		/usr/local/cuda/include/device_launch_parameters.h \
+		/usr/local/cuda/include/curand.h \
+		../../../../caffe-segnet/include/caffe/util/cudnn.hpp \
+		/usr/local/cuda/include/cudnn.h \
+		../../../../caffe-segnet/include/caffe/proto/caffe.pb.h \
+		../../../../caffe-segnet/include/caffe/syncedmem.hpp \
+		../../../../caffe-segnet/include/caffe/util/math_functions.hpp \
+		../../../../caffe-segnet/include/caffe/util/mkl_alternate.hpp \
+		../../../../caffe-segnet/include/caffe/filler.hpp \
+		../../../../caffe-segnet/include/caffe/layer.hpp \
+		../../../../caffe-segnet/include/caffe/layer_factory.hpp \
+		../../../../caffe-segnet/include/caffe/net.hpp \
+		../../../../caffe-segnet/include/caffe/solver.hpp \
+		../../../../caffe-segnet/include/caffe/util/benchmark.hpp \
+		../../../../caffe-segnet/include/caffe/util/io.hpp \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/hdf5.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5public.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5pubconf.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5version.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5api_adpt.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Apublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Ipublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Opublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Lpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Tpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5ACpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Cpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Dpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Epublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Epubgen.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Fpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Gpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5MMpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Ppublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Zpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5PLpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Rpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5Spublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDcore.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDfamily.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDlog.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDmpi.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDmpio.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDmulti.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDsec2.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDstdio.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5FDdirect.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/hdf5_hl.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5DOpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5DSpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5LTpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5IMpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5TBpublic.h \
+		/usr/lib/x86_64-linux-gnu/hdf5/serial/include/H5PTpublic.h \
+		../../../../caffe-segnet/include/caffe/vision_layers.hpp \
+		../../../../caffe-segnet/include/caffe/common_layers.hpp \
+		../../../../caffe-segnet/include/caffe/data_layers.hpp \
+		../../../../caffe-segnet/include/caffe/data_transformer.hpp \
+		../../../../caffe-segnet/include/caffe/internal_thread.hpp \
+		../../../../caffe-segnet/include/caffe/util/db.hpp \
+		../../../../caffe-segnet/include/caffe/loss_layers.hpp \
+		../../../../caffe-segnet/include/caffe/neuron_layers.hpp \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CMission.o ../front_camera/CMission/CMission.cpp
 
 CImage_Thread.o: ../front_camera/CImage_Thread/CImage_Thread.cpp 
