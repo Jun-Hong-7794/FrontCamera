@@ -205,7 +205,7 @@ public:
     void Save_Image();
 public:
     cv::Mat Image_Segment(cv::Mat);
-    void Display_Image(cv::Mat,QGraphicsScene*,QGraphicsView*);
+    void Display_Image(cv::Mat,QGraphicsScene*,QGraphicsView*,bool _fl_clear = false);
     QImage Mat2QImage(cv::Mat src);
 
 signals:

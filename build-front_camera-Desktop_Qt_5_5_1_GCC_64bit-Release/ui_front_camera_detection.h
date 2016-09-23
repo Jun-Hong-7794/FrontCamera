@@ -68,6 +68,9 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QLabel *label_5;
     QCheckBox *ck_sign_img_log;
+    QLabel *label_11;
+    QLabel *label_12;
+    QLineEdit *ed_traffic_sign_prob;
     QGroupBox *groupBox_4;
     QGraphicsView *pedestrian_view;
     QLineEdit *lineEdit_3;
@@ -97,6 +100,8 @@ public:
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_9;
     QCheckBox *ck_normal_car_img_log;
+    QLineEdit *ed_dummy_car;
+    QLineEdit *ed_normal_car;
     QFrame *line_3;
     QFrame *line_4;
     QFrame *line_5;
@@ -237,7 +242,7 @@ public:
         sign_view->setGeometry(QRect(10, 60, 101, 81));
         ed_traffic_sign = new QLineEdit(groupBox_3);
         ed_traffic_sign->setObjectName(QStringLiteral("ed_traffic_sign"));
-        ed_traffic_sign->setGeometry(QRect(120, 60, 81, 27));
+        ed_traffic_sign->setGeometry(QRect(120, 80, 111, 27));
         ed_traffic_sign->setReadOnly(true);
         layoutWidget3 = new QWidget(groupBox_3);
         layoutWidget3->setObjectName(QStringLiteral("layoutWidget3"));
@@ -255,6 +260,16 @@ public:
 
         horizontalLayout_6->addWidget(ck_sign_img_log);
 
+        label_11 = new QLabel(groupBox_3);
+        label_11->setObjectName(QStringLiteral("label_11"));
+        label_11->setGeometry(QRect(120, 60, 81, 17));
+        label_12 = new QLabel(groupBox_3);
+        label_12->setObjectName(QStringLiteral("label_12"));
+        label_12->setGeometry(QRect(120, 110, 81, 17));
+        ed_traffic_sign_prob = new QLineEdit(groupBox_3);
+        ed_traffic_sign_prob->setObjectName(QStringLiteral("ed_traffic_sign_prob"));
+        ed_traffic_sign_prob->setGeometry(QRect(120, 130, 81, 27));
+        ed_traffic_sign_prob->setReadOnly(true);
         groupBox_4 = new QGroupBox(frontcamera_dlg);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(890, 20, 261, 291));
@@ -286,7 +301,7 @@ public:
 
         groupBox_5 = new QGroupBox(frontcamera_dlg);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
-        groupBox_5->setGeometry(QRect(710, 690, 351, 71));
+        groupBox_5->setGeometry(QRect(710, 700, 351, 71));
         ck_mission_signal = new QCheckBox(groupBox_5);
         ck_mission_signal->setObjectName(QStringLiteral("ck_mission_signal"));
         ck_mission_signal->setGeometry(QRect(0, 20, 121, 22));
@@ -316,7 +331,7 @@ public:
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         groupBox_6 = new QGroupBox(frontcamera_dlg);
         groupBox_6->setObjectName(QStringLiteral("groupBox_6"));
-        groupBox_6->setGeometry(QRect(650, 420, 471, 271));
+        groupBox_6->setGeometry(QRect(650, 420, 471, 281));
         dummy_car_view = new QGraphicsView(groupBox_6);
         dummy_car_view->setObjectName(QStringLiteral("dummy_car_view"));
         dummy_car_view->setGeometry(QRect(10, 60, 211, 191));
@@ -355,6 +370,14 @@ public:
 
         horizontalLayout_9->addWidget(ck_normal_car_img_log);
 
+        ed_dummy_car = new QLineEdit(groupBox_6);
+        ed_dummy_car->setObjectName(QStringLiteral("ed_dummy_car"));
+        ed_dummy_car->setGeometry(QRect(10, 250, 161, 27));
+        ed_dummy_car->setReadOnly(true);
+        ed_normal_car = new QLineEdit(groupBox_6);
+        ed_normal_car->setObjectName(QStringLiteral("ed_normal_car"));
+        ed_normal_car->setGeometry(QRect(260, 250, 161, 27));
+        ed_normal_car->setReadOnly(true);
         line_3 = new QFrame(frontcamera_dlg);
         line_3->setObjectName(QStringLiteral("line_3"));
         line_3->setGeometry(QRect(870, 20, 21, 361));
@@ -411,6 +434,8 @@ public:
         groupBox_3->setTitle(QApplication::translate("frontcamera_dlg", "Traffic Sign", 0));
         label_5->setText(QApplication::translate("frontcamera_dlg", "Traffic Sign ROI", 0));
         ck_sign_img_log->setText(QApplication::translate("frontcamera_dlg", "Image Log", 0));
+        label_11->setText(QApplication::translate("frontcamera_dlg", "Sign name", 0));
+        label_12->setText(QApplication::translate("frontcamera_dlg", "Probability", 0));
         groupBox_4->setTitle(QApplication::translate("frontcamera_dlg", "Pedestrian", 0));
         label_7->setText(QApplication::translate("frontcamera_dlg", "Position", 0));
         label_6->setText(QApplication::translate("frontcamera_dlg", "Pedestrain ROI", 0));

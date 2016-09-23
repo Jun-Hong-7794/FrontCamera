@@ -12,7 +12,15 @@
 #define TRAFFIC_SIGNAL_NUMBER 4
 
 #define LABELIMAGE_SIZE_MAX 400*400
-#define LABELIMAGE_SIZE_MIN 20*20
+#define LABELIMAGE_SIZE_MIN 30*30
+
+#define LABELIMAGE_SIZE_MIN_SIGNAL 50*50
+
+#define LABELIMAGE_SIZE_MAX_DUMMY_CAR 500*500
+#define LABELIMAGE_SIZE_MIN_DUMMY_CAR 150*150
+
+#define LABELIMAGE_SIZE_MAX_NORMAL_CAR 500*500
+#define LABELIMAGE_SIZE_MIN_NORMAL_CAR 80*80
 
 #define NUMBER_OF_LABELS 5
 struct HSV_AVERAGE{
@@ -49,7 +57,7 @@ public:
     void HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg);
 
     bool Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
-                              int &_sign_rst,cv::Mat &_rst_img, bool _fl_save = false, CSaveImg *_csave = 0);
+                              int &_sign_rst,float &_prob,cv::Mat &_rst_img, bool _fl_save = false, CSaveImg *_csave = 0);
 
     int Lenet_Analisys(cv::Mat _img, float &_prob);
 

@@ -471,10 +471,16 @@ void FRONT_CAMERA::Mission(){
         else if(signal_num == 3)
             ed_signal->setText("Green");
         else
-            ed_signal->setText("Can not Find");
+            ed_signal->setText("Detection Fail");
 
-        Display_Image(crop_rst,mp_mission_qgraphic_signal,signal_view);
-        Display_Image(crop_signal,mp_mission_qgraphic_signal_color,signal_color_view);
+        if(signal_num == -1){
+            Display_Image(crop_rst,mp_mission_qgraphic_signal,signal_view,true);
+            Display_Image(crop_signal,mp_mission_qgraphic_signal_color,signal_color_view,true);
+        }
+        else{
+            Display_Image(crop_rst,mp_mission_qgraphic_signal,signal_view);
+            Display_Image(crop_signal,mp_mission_qgraphic_signal_color,signal_color_view);
+        }
 
         if(ck_traffic_img_log->isChecked()){
             m_save_trf_image.Save_Image(crop_rst);
@@ -484,12 +490,11 @@ void FRONT_CAMERA::Mission(){
     if(ck_mission_sign->isChecked()){
         cv::Mat crop_sign;
         int rst = 0;
+        float rst_prob = 0.0;
         QString str_rst = "";
 
         m_cmission.Mission_Traffic_sign(m_orgimg, m_segment_img,
-                                        rst, crop_sign, ck_sign_img_log->isChecked(), &m_save_sig_image);
-
-        Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view);
+                                        rst, rst_prob, crop_sign, ck_sign_img_log->isChecked(), &m_save_sig_image);
 
         if(rst == 0) str_rst = "Unknown";
         else if(rst == 1) str_rst = "P1";
@@ -497,9 +502,16 @@ void FRONT_CAMERA::Mission(){
         else if(rst == 3) str_rst = "P3";
         else if(rst == 4) str_rst = "P4";
         else if(rst == 5) str_rst = "Stop Sign";
+        else if(rst == -1) str_rst = "Not Detected";
         else str_rst = "Unknown";
 
+        if(rst == -1)
+            Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view,true);
+        else
+            Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view);
+
         ed_traffic_sign->setText(str_rst);
+        ed_traffic_sign_prob->setText(QString::number(rst_prob));
     }
 
     if(ck_mission_pedestrian->isChecked()){
@@ -521,8 +533,14 @@ void FRONT_CAMERA::Mission(){
 
         m_cmission.Mission_Dummy_Car(m_orgimg,m_segment_img,rst,crop_dummy_car);
 
-        Display_Image(crop_dummy_car,mp_mission_qgraphic_dummy_car,dummy_car_view);
-
+        if(rst < 0){
+            ed_dummy_car->setText("Not Detected");
+            Display_Image(crop_dummy_car,mp_mission_qgraphic_dummy_car,dummy_car_view,true);
+        }
+        else{
+            ed_dummy_car->setText("Dummy Car Detected");
+            Display_Image(crop_dummy_car,mp_mission_qgraphic_dummy_car,dummy_car_view);
+        }
 //        if(ck_dummy_car_img_log->isChecked()){
 //            m_save_ped_image.Save_Image(crop_dummy_car);
 //        }
@@ -534,8 +552,14 @@ void FRONT_CAMERA::Mission(){
 
         m_cmission.Mission_Normal_Car(m_orgimg,m_segment_img,rst,crop_normal_car);
 
-        Display_Image(crop_normal_car,mp_mission_qgraphic_normal_car,normal_car_view);
-
+        if(rst < 0){
+            ed_normal_car->setText("Not Detected");
+            Display_Image(crop_normal_car,mp_mission_qgraphic_normal_car,normal_car_view,true);
+        }
+        else{
+            ed_normal_car->setText("Normal Car Detected");
+            Display_Image(crop_normal_car,mp_mission_qgraphic_normal_car,normal_car_view);
+        }
 //        if(ck_dummy_car_img_log->isChecked()){
 //            m_save_ped_image.Save_Image(crop_dummy_car);
 //        }
@@ -568,8 +592,12 @@ cv::Mat FRONT_CAMERA::Image_Segment(cv::Mat _img){
     return mp_segnet->Classify(tmp_resize);
 }
 
-void FRONT_CAMERA::Display_Image(cv::Mat _img, QGraphicsScene* _graphics_scene,QGraphicsView * _graphics_view){
+void FRONT_CAMERA::Display_Image(cv::Mat _img, QGraphicsScene* _graphics_scene,QGraphicsView * _graphics_view,bool _fl_clear){
 
+    if(_fl_clear){
+        _graphics_scene->clear();
+        _graphics_view->viewport()->update();
+    }
     if(_img.rows <= 1 || _img.cols <= 1)
         return;
 

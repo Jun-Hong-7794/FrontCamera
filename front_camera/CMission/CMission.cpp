@@ -22,7 +22,34 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
                                       cv::Mat &_rst_img,cv::Mat &_rst_signal_img){
 
     //Image Labeling
-    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_SIGNAL));
+    int numberOfLabel = 0;
+    cv::Rect roi_rect[NUMBER_OF_LABELS];
+    cv::Mat* rst_img_ary = 0;
+    if(!m_clabel.Image_Label(_seg_image, LABEL_SIGNAL,
+                         roi_rect, NUMBER_OF_LABELS, numberOfLabel,
+                         LABELIMAGE_SIZE_MAX, LABELIMAGE_SIZE_MIN_SIGNAL)){
+        _signal_rst = -1;
+        return false;
+    }
+    else{
+
+        rst_img_ary = new cv::Mat[numberOfLabel];
+
+        for(int i = 0; i < numberOfLabel; i++){
+
+            if(roi_rect[i].height == 0)
+                continue;
+
+            rst_img_ary[i] = _org_image(roi_rect[i]);
+
+            //if(_fl_save)
+            //_csave->Save_Image(rst_img_ary[i],-1);
+        }
+    }
+
+    _rst_img = rst_img_ary[0].clone();
+
+    //_rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_SIGNAL));
 
     cv::Mat *signal_image_list = new cv::Mat[TRAFFIC_SIGNAL_NUMBER];
     cv::Mat *signal_hsv_image_list = new cv::Mat[TRAFFIC_SIGNAL_NUMBER];
@@ -108,7 +135,7 @@ void CMission::HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg){
 //Traffic_Signal Mission
 
 bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
-                                    int &_sign_rst,cv::Mat &_rst_img, bool _fl_save, CSaveImg *_csave){
+                                    int &_sign_rst,float &_prob,cv::Mat &_rst_img, bool _fl_save, CSaveImg *_csave){
     int numberOfLabel = 0;
     int label_index = 0;
     cv::Rect roi_rect[NUMBER_OF_LABELS];
@@ -119,7 +146,8 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
     if(!m_clabel.Image_Label(_seg_image, LABEL_SIGN,
                          roi_rect, NUMBER_OF_LABELS, numberOfLabel,
                          LABELIMAGE_SIZE_MAX, LABELIMAGE_SIZE_MIN)){
-        _sign_rst = 0;
+        _sign_rst = -1;
+        _prob = 0.0;
         return false;
     }
     else{
@@ -144,6 +172,7 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
                 if(prob_max < prob_sign){
                     _sign_rst = lenet_rst;
                     prob_max  = prob_sign;
+                    _prob = prob_sign;
                     label_index = i;
                 }
             }
@@ -214,20 +243,68 @@ bool CMission::Mission_Incident(cv::Mat _org_image, cv::Mat _seg_image,int &_inc
     return true;
 }
 
-bool CMission::Mission_Dummy_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_incidence_rst,cv::Mat &_rst_img){
+bool CMission::Mission_Dummy_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_rst,cv::Mat &_rst_img){
 
-    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_DUMMY_CAR));
+    int numberOfLabel = 0;
+    cv::Rect roi_rect[NUMBER_OF_LABELS];
+    cv::Mat* rst_img_ary = 0;
+    if(!m_clabel.Image_Label(_seg_image, LABEL_DUMMY_CAR,
+                         roi_rect, NUMBER_OF_LABELS, numberOfLabel,
+                         LABELIMAGE_SIZE_MAX_NORMAL_CAR, LABELIMAGE_SIZE_MIN_NORMAL_CAR)){
+        _rst = -1;
+        return false;
+    }
+    else{
 
-    _incidence_rst = 0;
+        rst_img_ary = new cv::Mat[numberOfLabel];
 
+        for(int i = 0; i < numberOfLabel; i++){
+
+            if(roi_rect[i].height == 0)
+                continue;
+
+            rst_img_ary[i] = _org_image(roi_rect[i]);
+
+            //if(_fl_save)
+            //_csave->Save_Image(rst_img_ary[i],-1);
+        }
+    }
+    _rst_img = rst_img_ary[0].clone();
+    //_rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_DUMMY_CAR));
+
+    _rst = 1;
     return true;
 }
 
-bool CMission::Mission_Normal_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img){
+bool CMission::Mission_Normal_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_rst,cv::Mat &_rst_img){
 
-    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_CAR));
+    int numberOfLabel = 0;
+    cv::Rect roi_rect[NUMBER_OF_LABELS];
+    cv::Mat* rst_img_ary = 0;
+    if(!m_clabel.Image_Label(_seg_image, LABEL_CAR,
+                         roi_rect, NUMBER_OF_LABELS, numberOfLabel,
+                         LABELIMAGE_SIZE_MAX_DUMMY_CAR, LABELIMAGE_SIZE_MIN_DUMMY_CAR)){
+        _rst = -1;
+        return false;
+    }
+    else{
 
-    _sign_rst = 0;
+        rst_img_ary = new cv::Mat[numberOfLabel];
 
+        for(int i = 0; i < numberOfLabel; i++){
+
+            if(roi_rect[i].height == 0)
+                continue;
+
+            rst_img_ary[i] = _org_image(roi_rect[i]);
+
+            //if(_fl_save)
+            //_csave->Save_Image(rst_img_ary[i],-1);
+        }
+    }
+    _rst_img = rst_img_ary[0].clone();
+//    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_CAR));
+
+    _rst = 0;
     return true;
 }
