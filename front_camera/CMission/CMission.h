@@ -14,7 +14,7 @@
 #define LABELIMAGE_SIZE_MAX 400*400
 #define LABELIMAGE_SIZE_MIN 30*30
 
-#define LABELIMAGE_SIZE_MIN_SIGNAL 50*50
+#define LABELIMAGE_SIZE_MIN_SIGNAL 30*30
 
 #define LABELIMAGE_SIZE_MAX_DUMMY_CAR 500*500
 #define LABELIMAGE_SIZE_MIN_DUMMY_CAR 150*150
@@ -69,4 +69,7 @@ public:
     bool Mission_Dummy_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
 
     bool Mission_Normal_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_sign_rst,cv::Mat &_rst_img);
+
+public:
+    bool Check_Image_Ratio(cv::Mat _img, int _img_label);
 };

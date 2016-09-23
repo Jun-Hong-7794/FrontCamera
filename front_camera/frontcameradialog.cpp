@@ -471,13 +471,14 @@ void FRONT_CAMERA::Mission(){
         else if(signal_num == 3)
             ed_signal->setText("Green");
         else
-            ed_signal->setText("Detection Fail");
+            ed_signal->setText("Not Detected");
 
         if(signal_num == -1){
             Display_Image(crop_rst,mp_mission_qgraphic_signal,signal_view,true);
             Display_Image(crop_signal,mp_mission_qgraphic_signal_color,signal_color_view,true);
         }
         else{
+            ed_signal_ratio->setText(QString::number(((double)crop_rst.rows / (double)crop_rst.cols)));
             Display_Image(crop_rst,mp_mission_qgraphic_signal,signal_view);
             Display_Image(crop_signal,mp_mission_qgraphic_signal_color,signal_color_view);
         }
@@ -507,9 +508,10 @@ void FRONT_CAMERA::Mission(){
 
         if(rst == -1)
             Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view,true);
-        else
+        else{
+            ed_sign_ratio->setText(QString::number(((double)crop_sign.rows / (double)crop_sign.cols)));
             Display_Image(crop_sign,mp_mission_qgraphic_sign,sign_view);
-
+        }
         ed_traffic_sign->setText(str_rst);
         ed_traffic_sign_prob->setText(QString::number(rst_prob));
     }
@@ -538,6 +540,7 @@ void FRONT_CAMERA::Mission(){
             Display_Image(crop_dummy_car,mp_mission_qgraphic_dummy_car,dummy_car_view,true);
         }
         else{
+            ed_dummy_car_ratio->setText(QString::number(((double)crop_dummy_car.rows / (double)crop_dummy_car.cols)));
             ed_dummy_car->setText("Dummy Car Detected");
             Display_Image(crop_dummy_car,mp_mission_qgraphic_dummy_car,dummy_car_view);
         }
@@ -557,6 +560,7 @@ void FRONT_CAMERA::Mission(){
             Display_Image(crop_normal_car,mp_mission_qgraphic_normal_car,normal_car_view,true);
         }
         else{
+            ed_normal_car_ratio->setText(QString::number(((double)crop_normal_car.rows / (double)crop_normal_car.cols)));
             ed_normal_car->setText("Normal Car Detected");
             Display_Image(crop_normal_car,mp_mission_qgraphic_normal_car,normal_car_view);
         }
@@ -597,6 +601,7 @@ void FRONT_CAMERA::Display_Image(cv::Mat _img, QGraphicsScene* _graphics_scene,Q
     if(_fl_clear){
         _graphics_scene->clear();
         _graphics_view->viewport()->update();
+        return;
     }
     if(_img.rows <= 1 || _img.cols <= 1)
         return;

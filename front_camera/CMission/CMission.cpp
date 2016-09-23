@@ -49,7 +49,12 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
 
     _rst_img = rst_img_ary[0].clone();
 
-    //_rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_SIGNAL));
+    if(!Check_Image_Ratio(_rst_img,LABEL_SIGNAL)){
+        _signal_rst = -1;
+        if(rst_img_ary != 0)
+            delete[] rst_img_ary;
+        return false;
+    }
 
     cv::Mat *signal_image_list = new cv::Mat[TRAFFIC_SIGNAL_NUMBER];
     cv::Mat *signal_hsv_image_list = new cv::Mat[TRAFFIC_SIGNAL_NUMBER];
@@ -70,6 +75,9 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
 
     signal_image_list[_signal_rst].copyTo(_rst_signal_img);
 //    cv::imshow("Result", signal_image_list[signal_number]);
+
+    if(rst_img_ary != 0)
+        delete[] rst_img_ary;
 
     delete[] signal_image_list;
     delete[] signal_hsv_image_list;
@@ -131,9 +139,6 @@ void CMission::HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg){
     _hsv_avg.v_avg /= _img.cols;
 }
 
-
-//Traffic_Signal Mission
-
 bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
                                     int &_sign_rst,float &_prob,cv::Mat &_rst_img, bool _fl_save, CSaveImg *_csave){
     int numberOfLabel = 0;
@@ -179,11 +184,31 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
         }
     }
 
-    if(roi_rect[label_index].height == 0)
+    if(roi_rect[label_index].height == 0){
+        if(rst_img_ary != 0)
+            delete[] rst_img_ary;
         return false;
-    else
-        _rst_img = _org_image(roi_rect[label_index]);
+    }
 
+    _rst_img = _org_image(roi_rect[label_index]);
+
+    // Check Ratio
+    if(_sign_rst != 5){//P1 ~ P4
+        if(!Check_Image_Ratio(_rst_img,LABEL_SIGN)){
+            _sign_rst = -1;
+            if(rst_img_ary != 0)
+                delete[] rst_img_ary;
+            return false;
+        }
+    }
+    else if(_sign_rst == 5){//Stop Sign
+        if(!Check_Image_Ratio(_rst_img,LABEL_STOP_SIGN)){
+            _sign_rst = -1;
+            if(rst_img_ary != 0)
+                delete[] rst_img_ary;
+            return false;
+        }
+    }
 
     if(rst_img_ary != 0)
         delete[] rst_img_ary;
@@ -233,7 +258,6 @@ void CMission::Image_Subtract(cv::Mat _img_1, cv::Mat _img_2, cv::Mat &_img_rst)
     cv::imshow("aa",_img_rst);
 }
 
-
 bool CMission::Mission_Incident(cv::Mat _org_image, cv::Mat _seg_image,int &_incidence_rst,cv::Mat &_rst_img){
 
     _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_SIGNAL));
@@ -269,8 +293,18 @@ bool CMission::Mission_Dummy_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_rs
             //_csave->Save_Image(rst_img_ary[i],-1);
         }
     }
+
     _rst_img = rst_img_ary[0].clone();
-    //_rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_DUMMY_CAR));
+
+    if(!Check_Image_Ratio(_rst_img,LABEL_DUMMY_CAR)){
+        _rst = -1;
+        if(rst_img_ary != 0)
+            delete[] rst_img_ary;
+        return false;
+    }
+
+    if(rst_img_ary != 0)
+        delete[] rst_img_ary;
 
     _rst = 1;
     return true;
@@ -305,6 +339,45 @@ bool CMission::Mission_Normal_Car(cv::Mat _org_image, cv::Mat _seg_image,int &_r
     _rst_img = rst_img_ary[0].clone();
 //    _rst_img = _org_image(m_clabel.Image_Label(_seg_image,LABEL_CAR));
 
-    _rst = 0;
+    if(rst_img_ary != 0)
+        delete[] rst_img_ary;
+    _rst = 1;
     return true;
 }
+
+bool CMission::Check_Image_Ratio(cv::Mat _img, int _img_label){
+
+    double image_ratio = 0;
+
+    image_ratio = (double)((double)_img.rows / (double)_img.cols);
+
+    if(_img_label == LABEL_DUMMY_CAR){
+        if(image_ratio > 0.9 || image_ratio < 0.4){
+            return false;
+        }
+    }
+
+    if(_img_label == LABEL_SIGN){//P1 ~ P4
+        if(image_ratio > 1.4 || image_ratio < 0.8){
+            return false;
+        }
+    }
+    if(_img_label == LABEL_STOP_SIGN){//Stop Sign
+        if(image_ratio > 1.7 || image_ratio < 1.3){
+            return false;
+        }
+    }
+
+    if(_img_label == LABEL_SIGNAL){//Traffic Signal
+        if(image_ratio > 0.4 || image_ratio < 0.15){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+
+
+

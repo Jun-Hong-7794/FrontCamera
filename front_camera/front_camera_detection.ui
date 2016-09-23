@@ -342,6 +342,16 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLineEdit" name="ed_signal_ratio">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>0</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
@@ -443,6 +453,16 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLineEdit" name="ed_sign_ratio">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>0</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
@@ -517,6 +537,16 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLineEdit" name="ed_pedestrian_ratio">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>0</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_5">
@@ -727,6 +757,26 @@
     </property>
     <property name="readOnly">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ed_dummy_car_ratio">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>0</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ed_normal_car_ratio">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>0</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
     </property>
    </widget>
   </widget>

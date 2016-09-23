@@ -61,6 +61,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *label_4;
     QLineEdit *ed_signal;
+    QLineEdit *ed_signal_ratio;
     QGroupBox *groupBox_3;
     QGraphicsView *sign_view;
     QLineEdit *ed_traffic_sign;
@@ -71,6 +72,7 @@ public:
     QLabel *label_11;
     QLabel *label_12;
     QLineEdit *ed_traffic_sign_prob;
+    QLineEdit *ed_sign_ratio;
     QGroupBox *groupBox_4;
     QGraphicsView *pedestrian_view;
     QLineEdit *lineEdit_3;
@@ -79,6 +81,7 @@ public:
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_6;
     QCheckBox *ck_pedestrian_img_log;
+    QLineEdit *ed_pedestrian_ratio;
     QGroupBox *groupBox_5;
     QCheckBox *ck_mission_signal;
     QCheckBox *ck_mission_sign;
@@ -102,6 +105,8 @@ public:
     QCheckBox *ck_normal_car_img_log;
     QLineEdit *ed_dummy_car;
     QLineEdit *ed_normal_car;
+    QLineEdit *ed_dummy_car_ratio;
+    QLineEdit *ed_normal_car_ratio;
     QFrame *line_3;
     QFrame *line_4;
     QFrame *line_5;
@@ -234,6 +239,9 @@ public:
 
         horizontalLayout->addWidget(ed_signal);
 
+        ed_signal_ratio = new QLineEdit(traffic_signal);
+        ed_signal_ratio->setObjectName(QStringLiteral("ed_signal_ratio"));
+        ed_signal_ratio->setGeometry(QRect(100, 0, 113, 27));
         groupBox_3 = new QGroupBox(frontcamera_dlg);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         groupBox_3->setGeometry(QRect(630, 230, 231, 161));
@@ -270,6 +278,9 @@ public:
         ed_traffic_sign_prob->setObjectName(QStringLiteral("ed_traffic_sign_prob"));
         ed_traffic_sign_prob->setGeometry(QRect(120, 130, 81, 27));
         ed_traffic_sign_prob->setReadOnly(true);
+        ed_sign_ratio = new QLineEdit(groupBox_3);
+        ed_sign_ratio->setObjectName(QStringLiteral("ed_sign_ratio"));
+        ed_sign_ratio->setGeometry(QRect(90, 0, 113, 27));
         groupBox_4 = new QGroupBox(frontcamera_dlg);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         groupBox_4->setGeometry(QRect(890, 20, 261, 291));
@@ -299,6 +310,9 @@ public:
 
         horizontalLayout_7->addWidget(ck_pedestrian_img_log);
 
+        ed_pedestrian_ratio = new QLineEdit(groupBox_4);
+        ed_pedestrian_ratio->setObjectName(QStringLiteral("ed_pedestrian_ratio"));
+        ed_pedestrian_ratio->setGeometry(QRect(80, 0, 113, 27));
         groupBox_5 = new QGroupBox(frontcamera_dlg);
         groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
         groupBox_5->setGeometry(QRect(710, 700, 351, 71));
@@ -378,6 +392,12 @@ public:
         ed_normal_car->setObjectName(QStringLiteral("ed_normal_car"));
         ed_normal_car->setGeometry(QRect(260, 250, 161, 27));
         ed_normal_car->setReadOnly(true);
+        ed_dummy_car_ratio = new QLineEdit(groupBox_6);
+        ed_dummy_car_ratio->setObjectName(QStringLiteral("ed_dummy_car_ratio"));
+        ed_dummy_car_ratio->setGeometry(QRect(90, 0, 113, 27));
+        ed_normal_car_ratio = new QLineEdit(groupBox_6);
+        ed_normal_car_ratio->setObjectName(QStringLiteral("ed_normal_car_ratio"));
+        ed_normal_car_ratio->setGeometry(QRect(340, 0, 113, 27));
         line_3 = new QFrame(frontcamera_dlg);
         line_3->setObjectName(QStringLiteral("line_3"));
         line_3->setGeometry(QRect(870, 20, 21, 361));

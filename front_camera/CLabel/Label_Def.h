@@ -5,6 +5,7 @@
 #define LABEL_ROAD_CAR              0x804080
 #define LABEL_ROAD_PEDASTRAIN       0x3c28de
 #define LABEL_SIGN                  0xc08080
+#define LABEL_STOP_SIGN             0xc08081
 #define LABEL_CURB                  0x404080
 #define LABEL_SKY                   0x808080
 #define LABEL_ROAD_SIGN             0xff4500
