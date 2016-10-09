@@ -8,7 +8,7 @@ bool CNetImg::Socket_Init(char *_server_ip, int _server_port){
 
     mp_client = new CClient;
 
-    if(mp_client->socket_init(_server_ip, _server_port, (char *)"192.168.3.5",1234) == -1)
+    if(mp_client->socket_init(_server_ip, _server_port, (char *)"192.168.100.41",1234) == -1)
         return false;
 
     fl_socket_stream = true;

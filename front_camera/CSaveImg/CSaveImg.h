@@ -30,7 +30,7 @@ public:
     CSaveImg();
     ~CSaveImg();
 
-private:
+public:
     QString Current_Time_to_String();
     QString Current_Time_to_String_Just_Time();
 

@@ -87,7 +87,7 @@
      <string>Network</string>
     </property>
     <property name="checked">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="rd_input_mode_loc">
@@ -116,7 +116,7 @@
      <string>USB</string>
     </property>
     <property name="checked">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="rd_input_mode_lcm_log_play">
@@ -573,6 +573,9 @@
     <property name="text">
      <string>Traffic Signal</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QCheckBox" name="ck_mission_sign">
     <property name="geometry">
@@ -585,6 +588,9 @@
     </property>
     <property name="text">
      <string>Traffic Sign</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QCheckBox" name="ck_mission_pedestrian">
@@ -612,6 +618,9 @@
     <property name="text">
      <string>Dummy Car</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QCheckBox" name="ck_mission_normal_car">
     <property name="geometry">
@@ -624,6 +633,9 @@
     </property>
     <property name="text">
      <string>Normal car</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

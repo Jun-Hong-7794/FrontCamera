@@ -23,6 +23,7 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
 
     //Image Labeling
     int numberOfLabel = 0;
+    int max_saturation = 0;
     cv::Rect roi_rect[NUMBER_OF_LABELS];
     cv::Mat* rst_img_ary = 0;
     if(!m_clabel.Image_Label(_seg_image, LABEL_SIGNAL,
@@ -46,7 +47,7 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
             //_csave->Save_Image(rst_img_ary[i],-1);
         }
     }
-
+    //Select Biggest Image... It should be changed. . .
     _rst_img = rst_img_ary[0].clone();
 
     if(!Check_Image_Ratio(_rst_img,LABEL_SIGNAL)){
@@ -55,7 +56,9 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
             delete[] rst_img_ary;
         return false;
     }
-
+    //-> Through Check_Image_Ratio(), Select Valid Images candidate from rst_img_ary[](not only one.)
+    //And Put thease Images to Lenet Architecture(to second classify)
+    //And then check Signal.
     cv::Mat *signal_image_list = new cv::Mat[TRAFFIC_SIGNAL_NUMBER];
     cv::Mat *signal_hsv_image_list = new cv::Mat[TRAFFIC_SIGNAL_NUMBER];
 
@@ -71,7 +74,7 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
 
     }
 
-    _signal_rst = Get_Traffic_Signal_Number(signal_hsv_image_list, TRAFFIC_SIGNAL_NUMBER);
+    _signal_rst = Get_Traffic_Signal_Number(signal_hsv_image_list, TRAFFIC_SIGNAL_NUMBER, max_saturation);
 
     signal_image_list[_signal_rst].copyTo(_rst_signal_img);
 //    cv::imshow("Result", signal_image_list[signal_number]);
@@ -82,10 +85,16 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
     delete[] signal_image_list;
     delete[] signal_hsv_image_list;
 
-    return true;
+    if(max_saturation < 1000){
+        _signal_rst = -2;
+        return false;
+    }
+
+    else
+        return true;
 }
 
-int CMission::Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n){
+int CMission::Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n, int &_max_saturation){
 
     //-1: Can not find
     // 0: Red, 1: Yellow, 2: Green(Left), 3: Green(Straight)
@@ -109,6 +118,8 @@ int CMission::Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n){
             signal_number = i;
         }
     }
+
+    _max_saturation = max_saturation;
 
     delete[] hsv_avg;
     return signal_number;

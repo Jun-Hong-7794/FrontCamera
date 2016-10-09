@@ -53,7 +53,7 @@ private:
 public:
     bool Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int &_signal_rst,
                                 cv::Mat &_rst_img, cv::Mat &_rst_signal_img);
-    int Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n);
+    int Get_Traffic_Signal_Number(cv::Mat* _image_list,int _n, int &_max_saturation);
     void HSV_Average_Result(cv::Mat _img, HSV_AVERAGE &_hsv_avg);
 
     bool Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,

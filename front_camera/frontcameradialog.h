@@ -203,6 +203,8 @@ public slots:
 public:
     void Mission();
     void Save_Image();
+
+    unsigned int m_current_time;
 public:
     cv::Mat Image_Segment(cv::Mat);
     void Display_Image(cv::Mat,QGraphicsScene*,QGraphicsView*,bool _fl_clear = false);

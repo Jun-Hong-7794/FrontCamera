@@ -76,10 +76,13 @@ bool CLabel::Image_Label(cv::Mat _img_org, int _label_class,
 
     cv::cvtColor(bin_img,bin_img,cv::COLOR_BGR2GRAY);
     cv::Mat labels_img,states,centroids;
-    cv::Mat kernel(3,3,CV_8UC1,cv::Scalar(255));
+    cv::Mat kernel(5,5,CV_8UC1,cv::Scalar(255));
 
     cv::erode(bin_img,bin_img,kernel);
     cv::erode(bin_img,bin_img,kernel);
+
+    cv::dilate(bin_img,bin_img,kernel);
+    cv::dilate(bin_img,bin_img,kernel);
 
     int numOfLabels = cv::connectedComponentsWithStats(bin_img,labels_img,
                                                        states,centroids);

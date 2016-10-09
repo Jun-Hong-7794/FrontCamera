@@ -20,7 +20,7 @@
      if(m_capture_mode == 2){
         (*mp_video) >> _img;
          //cv::waitKey(80);
-        QThread::msleep(80);
+        QThread::msleep(40);
      }
 
      if(m_capture_mode == 3){
@@ -62,7 +62,7 @@ void CImage_Thread::Start_Img_Thread(){
     fl_stream = true;
 
     if(m_capture_mode == 1){
-        if(!m_net_image.Socket_Init((char *)"192.168.3.6",1234)){
+        if(!m_net_image.Socket_Init((char *)"192.168.100.123",1234)){
             std::cout << "m_net_image Init Fail!" << std::endl;
             fl_stream = false;
         }
@@ -219,6 +219,7 @@ double clockToMillisecnods(clock_t _ticks){
 void FRONT_CAMERA::fps_start(){
 
     m_start_ticks = clock();
+    m_current_time = (unsigned int)m_save_org_image.Current_Time_to_String_Just_Time().toInt();
 }
 
 double FRONT_CAMERA::fps_end(){
@@ -455,6 +456,15 @@ void FRONT_CAMERA::Set_Image(cv::Mat _img){
 
 void FRONT_CAMERA::Mission(){
 
+    eurecar::vision_front_cam vision_front_cam;
+
+    vision_front_cam.timestamp = m_current_time;
+    vision_front_cam.traffic_signal = -1;
+    vision_front_cam.sign = -1;
+    vision_front_cam.fl_pedestrian = false;
+    vision_front_cam.fl_car = false;
+    vision_front_cam.car_distance = 0.0;
+
     if(ck_mission_signal->isChecked()){
         cv::Mat crop_rst;
         cv::Mat crop_signal;
@@ -470,6 +480,8 @@ void FRONT_CAMERA::Mission(){
             ed_signal->setText("Green(Left)");
         else if(signal_num == 3)
             ed_signal->setText("Green");
+        else if(signal_num == -2)
+            ed_signal->setText("No Signal");
         else
             ed_signal->setText("Not Detected");
 
@@ -486,6 +498,7 @@ void FRONT_CAMERA::Mission(){
         if(ck_traffic_img_log->isChecked()){
             m_save_trf_image.Save_Image(crop_rst);
         }
+        vision_front_cam.traffic_signal = signal_num;
     }
 
     if(ck_mission_sign->isChecked()){
@@ -514,6 +527,8 @@ void FRONT_CAMERA::Mission(){
         }
         ed_traffic_sign->setText(str_rst);
         ed_traffic_sign_prob->setText(QString::number(rst_prob));
+
+        vision_front_cam.sign = rst;
     }
 
     if(ck_mission_pedestrian->isChecked()){
@@ -527,8 +542,13 @@ void FRONT_CAMERA::Mission(){
         if(ck_pedestrian_img_log->isChecked()){
             m_save_ped_image.Save_Image(crop_pedestrian);
         }
-    }
 
+        vision_front_cam.fl_pedestrian = rst;
+    }
+    else{
+        cv::Mat crop_pedestrian;
+        Display_Image(crop_pedestrian,mp_mission_qgraphic_pedestrian,pedestrian_view, true);
+    }
     if(ck_mission_dummy_car->isChecked()){
         cv::Mat crop_dummy_car;
         int rst = 0;
@@ -547,6 +567,13 @@ void FRONT_CAMERA::Mission(){
 //        if(ck_dummy_car_img_log->isChecked()){
 //            m_save_ped_image.Save_Image(crop_dummy_car);
 //        }
+
+        if(rst < 0)
+            rst = 0;
+        else
+            rst = 1;
+
+        vision_front_cam.fl_car = rst;
     }
 
     if(ck_mission_normal_car->isChecked()){
@@ -567,15 +594,19 @@ void FRONT_CAMERA::Mission(){
 //        if(ck_dummy_car_img_log->isChecked()){
 //            m_save_ped_image.Save_Image(crop_dummy_car);
 //        }
+        //vision_front_cam.fl_car = rst;
     }
 
+
+
+    m_front_cam_lcm.LCM_Publish(vision_front_cam);
     //cv::imshow("Segment Image", m_segment_img);
     return;
 }
 
 void FRONT_CAMERA::Save_Image(){
     if(m_save_mode && SAVE_MODE_ORIGINAL){
-        m_save_org_image.Save_Image(m_orgimg);
+        m_save_org_image.Save_Image(m_orgimg,m_current_time);
     }
     if(m_save_mode && SAVE_MODE_SEGMENT){
         m_save_seg_image.Save_Image(m_segment_img);
