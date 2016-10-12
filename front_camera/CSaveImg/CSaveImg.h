@@ -37,6 +37,7 @@ public:
 public:
     void Save_Folder_Init(QString _folder_name, int _img_type, bool _using_time_stamp_name = false);
     void Save_Image(cv::Mat _img, int _time_stamp = 0);
+    void Save_Image(cv::Mat _img, QString _under_folder,int _time_stamp = 0);
     void Close_Folder();
 
 };

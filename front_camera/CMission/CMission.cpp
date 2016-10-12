@@ -4,10 +4,14 @@ CMission::CMission(){
 
     fl_lenet_init = false;
 
-    m_model_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/deploy.prototxt";
-    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/Training/lenet_sign_iter_20000.caffemodel";
-    m_mean_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/data/lenet_sign/lenet_sign_train_mean.binaryproto";
-    m_label_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/label_file.txt";
+//    m_model_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/deploy.prototxt";
+//    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/Training/lenet_sign_iter_20000.caffemodel";
+//    m_mean_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/data/lenet_sign/lenet_sign_train_mean.binaryproto";
+//    m_label_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/label_file.txt";
+    m_model_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/deploy.prototxt";
+    m_weight_file = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/Result_iter_75000.caffemodel";
+    m_mean_file   = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/lenet_car_train_mean.binaryproto";
+    m_label_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/label_meaning";
 
     m_lenet.net_initialize(m_model_file.toUtf8().constData(),m_weight_file.toUtf8().constData(),
                            m_mean_file.toUtf8().constData(),m_label_file.toUtf8().constData());
@@ -179,11 +183,40 @@ bool CMission::Mission_Traffic_sign(cv::Mat _org_image, cv::Mat _seg_image,
 
             rst_img_ary[i] = _org_image(roi_rect[i]);
 
-            if(_fl_save)
-                _csave->Save_Image(rst_img_ary[i],-1);
-
             int lenet_rst = Lenet_Analisys(rst_img_ary[i],prob_sign);
 
+            if(_fl_save){
+                if(lenet_rst == 1){
+                    _csave->Save_Image(rst_img_ary[i],"P1",-1);
+                }
+                else if(lenet_rst == 2){
+                    _csave->Save_Image(rst_img_ary[i],"P2",-1);
+                }
+                else if(lenet_rst == 3){
+                    _csave->Save_Image(rst_img_ary[i],"P3",-1);
+                }
+                else if(lenet_rst == 4){
+                    _csave->Save_Image(rst_img_ary[i],"P4",-1);
+                }
+                else if(lenet_rst == 5){
+                    _csave->Save_Image(rst_img_ary[i],"Stop",-1);
+                }
+                else if(lenet_rst == 6){
+                    _csave->Save_Image(rst_img_ary[i],"Px_Crop",-1);
+                }
+                else if(lenet_rst == 7){
+                    _csave->Save_Image(rst_img_ary[i],"Slow",-1);
+                }
+                else if(lenet_rst == 8){
+                    _csave->Save_Image(rst_img_ary[i],"DoNotLeft",-1);
+                }
+                else if(lenet_rst == 9){
+                    _csave->Save_Image(rst_img_ary[i],"Multi-Px",-1);
+                }
+                else if(lenet_rst == 0){
+                    _csave->Save_Image(rst_img_ary[i],"Unknown",-1);
+                }
+            }
             if(lenet_rst != 0){
                 if(prob_max < prob_sign){
                     _sign_rst = lenet_rst;

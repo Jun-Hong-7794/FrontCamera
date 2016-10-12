@@ -527,7 +527,6 @@ void FRONT_CAMERA::Mission(){
         }
         ed_traffic_sign->setText(str_rst);
         ed_traffic_sign_prob->setText(QString::number(rst_prob));
-
         vision_front_cam.sign = rst;
     }
 

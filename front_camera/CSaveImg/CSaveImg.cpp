@@ -111,6 +111,32 @@ void CSaveImg::Save_Image(cv::Mat _img ,int _time_stamp){
     cv::imwrite(current_locale_path,_img);
 }
 
+void CSaveImg::Save_Image(cv::Mat _img, QString _under_folder,int _time_stamp){
+
+    std::string current_locale_path;
+
+    QString folder_path;
+    folder_path = m_folder_path + "/" + _under_folder;
+
+    m_qdir.mkdir(folder_path);
+
+    if(_time_stamp == 0){
+        QString file_name = folder_path + "/" + QString::number(m_file_index) + ".jpg";
+        current_locale_path = file_name.toLocal8Bit().constData();
+        m_file_index++;
+    }
+    else if(_time_stamp == -1){
+        QString file_name = folder_path + "/" + Current_Time_to_String_Just_Time() + ".jpg";
+        current_locale_path = file_name.toLocal8Bit().constData();
+    }
+    else{
+        QString file_name = folder_path + "/" + QString::number(_time_stamp) + ".jpg";
+        current_locale_path = file_name.toLocal8Bit().constData();
+    }
+
+    cv::imwrite(current_locale_path,_img);
+}
+
 void CSaveImg::Close_Folder(){
     m_folder_path = " ";
     m_file_index = 0;
