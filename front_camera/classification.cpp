@@ -61,7 +61,7 @@ cv::Mat Classifier_segnet::Predict(const cv::Mat& img) {
 
 
 
-	const shared_ptr<Blob<float> > prob = net_->blob_by_name("prob");
+    const caffe::shared_ptr<Blob<float> > prob = net_->blob_by_name("prob");
 	float* prob_addr = prob->mutable_cpu_data();
 
 	vector<cv::Mat> prob_color_channel;

@@ -80,6 +80,17 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
 
     _signal_rst = Get_Traffic_Signal_Number(signal_hsv_image_list, TRAFFIC_SIGNAL_NUMBER, max_saturation);
 
+    //Logistic Fnc Test!
+    CLogisticFnc logistic_fnc;
+    LOGISTIC_PARM log_parm;
+
+    log_parm.k = 30;
+    log_parm.L = 254;
+    log_parm.x0 = 180;
+
+    _rst_img = logistic_fnc.LogisticFnc(_rst_img,log_parm);
+    //Logistic Fnc Test!
+
     signal_image_list[_signal_rst].copyTo(_rst_signal_img);
 //    cv::imshow("Result", signal_image_list[signal_number]);
 
