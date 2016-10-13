@@ -8,10 +8,10 @@ CMission::CMission(){
 //    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/Training/lenet_sign_iter_20000.caffemodel";
 //    m_mean_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/data/lenet_sign/lenet_sign_train_mean.binaryproto";
 //    m_label_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/label_file.txt";
-    m_model_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/deploy.prototxt";
-    m_weight_file = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/Result_iter_75000.caffemodel";
-    m_mean_file   = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/lenet_car_train_mean.binaryproto";
-    m_label_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/label_meaning";
+    m_model_file  = "/home/jun/Desktop/Lenet_Data/20161013/Learning_File/deploy.prototxt";
+    m_weight_file = "/home/jun/Desktop/Lenet_Data/20161013/Learning_File/lenet_sign_iter_25000.caffemodel";
+    m_mean_file   = "/home/jun/Desktop/Lenet_Data/20161013/Learning_File/lenet_car_train_mean.binaryproto";
+    m_label_file  = "/home/jun/Desktop/Lenet_Data/20161013/Learning_File/label_meaning";
 
     m_lenet.net_initialize(m_model_file.toUtf8().constData(),m_weight_file.toUtf8().constData(),
                            m_mean_file.toUtf8().constData(),m_label_file.toUtf8().constData());
