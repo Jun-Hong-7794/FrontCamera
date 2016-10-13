@@ -170,11 +170,19 @@ FRONT_CAMERA::FRONT_CAMERA(QWidget *parent)
 
     m_frame_rate = 0.0;
 
-    m_model_file  = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/segnet_inference_input.prototxt";
-    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/test_weights.caffemodel";
+//    m_model_file  = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/segnet_inference_input.prototxt";
+//    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-20/test_weights.caffemodel";
+    m_model_file  = "/home/winner/Workspace/Learning_Model_Weight/2016-09-20/segnet_inference_input.prototxt";
+    m_weight_file = "/home/winner/Workspace/Learning_Model_Weight/2016-09-20/test_weights.caffemodel";
 
     m_str_avi_path = " ";
     m_str_img_path = " ";
+
+
+
+
+
+
     m_str_lcm_log_path = " ";
 
     mp_segnet = new Classifier_segnet(m_model_file,m_weight_file);

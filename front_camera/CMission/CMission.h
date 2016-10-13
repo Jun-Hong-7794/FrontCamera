@@ -8,6 +8,7 @@
 #include "../CLabel/CLabel.h"
 #include "CSaveImg/CSaveImg.h"
 #include "CLenet/CLenet.hpp"
+#include "CLogisticFnc/CLogisticFnc.h"
 
 #define TRAFFIC_SIGNAL_NUMBER 4
 
@@ -37,6 +38,8 @@ public:
 
 private:
     CLabel m_clabel;
+private:
+    CLogisticFnc m_logistic_fnc;
 
 private://Lenet for traffic sign(P1 ~ P4 & Stop sign)
     bool fl_lenet_init;

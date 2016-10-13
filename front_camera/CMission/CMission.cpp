@@ -8,10 +8,15 @@ CMission::CMission(){
 //    m_weight_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/Training/lenet_sign_iter_20000.caffemodel";
 //    m_mean_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/data/lenet_sign/lenet_sign_train_mean.binaryproto";
 //    m_label_file = "/home/jun/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/label_file.txt";
-    m_model_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/deploy.prototxt";
-    m_weight_file = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/Result_iter_75000.caffemodel";
-    m_mean_file   = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/lenet_car_train_mean.binaryproto";
-    m_label_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/label_meaning";
+//    m_model_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/deploy.prototxt";
+//    m_weight_file = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/Result_iter_75000.caffemodel";
+//    m_mean_file   = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/lenet_car_train_mean.binaryproto";
+//    m_label_file  = "/home/jun/Desktop/Lenet_Data/20161011/Learning File/label_meaning";
+
+    m_model_file = "/home/winner/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/deploy.prototxt";
+    m_weight_file = "/home/winner/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/Training/lenet_sign_iter_20000.caffemodel";
+    m_mean_file = "/home/winner/Workspace/Learning_Model_Weight/2016-09-22-Lenet/data/lenet_sign/lenet_sign_train_mean.binaryproto";
+    m_label_file = "/home/winner/Workspace/Learning_Model_Weight/2016-09-22-Lenet/example/lenet_sign/label_file.txt";
 
     m_lenet.net_initialize(m_model_file.toUtf8().constData(),m_weight_file.toUtf8().constData(),
                            m_mean_file.toUtf8().constData(),m_label_file.toUtf8().constData());
@@ -79,6 +84,17 @@ bool CMission::Mission_Traffic_signal(cv::Mat _org_image, cv::Mat _seg_image,int
     }
 
     _signal_rst = Get_Traffic_Signal_Number(signal_hsv_image_list, TRAFFIC_SIGNAL_NUMBER, max_saturation);
+
+    //Logistic Fnc Test!
+    CLogisticFnc logistic_fnc;
+    LOGISTIC_PARM log_parm;
+
+    log_parm.k = 30;
+    log_parm.L = 254;
+    log_parm.x0 = 180;
+
+    _rst_img = logistic_fnc.LogisticFnc(_rst_img,log_parm);
+    //Logistic Fnc Test!
 
     signal_image_list[_signal_rst].copyTo(_rst_signal_img);
 //    cv::imshow("Result", signal_image_list[signal_number]);

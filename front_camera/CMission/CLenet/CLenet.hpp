@@ -20,7 +20,7 @@ class CLenet {
                   std::vector<cv::Mat>* input_channels);
 
  private:
-  shared_ptr<Net<float> > net_;
+  caffe::shared_ptr<Net<float> > net_;
   cv::Size input_geometry_;
   int num_channels_;
   cv::Mat mean_;

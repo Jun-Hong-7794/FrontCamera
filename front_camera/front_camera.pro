@@ -5,7 +5,7 @@ QT += widgets
 INCLUDEPATH += /usr/local/include
 INCLUDEPATH += /usr/lib/x86_64-linux-gnu/hdf5/serial/include
 INCLUDEPATH += /usr/local/cuda/include
-INCLUDEPATH += /home/jun/caffe-segnet/include
+INCLUDEPATH += /home/winner/caffe-segnet/include
 
 LIBS += -L/usr/local/lib
 LIBS += -lopencv_core
@@ -17,7 +17,7 @@ LIBS += -lopencv_imgcodecs
 LIBS += -L/usr/lib/x86_64-linux-gnu/hdf5/serial
 LIBS += -lhdf5
 
-LIBS += -L/home/jun/caffe-segnet/build/lib
+LIBS += -L/home/winner/caffe-segnet/build/lib
 LIBS += -lcaffe
 
 LIBS += -L/usr/lib/x86_64-linux-gnu
@@ -42,7 +42,8 @@ SOURCES += main.cpp \
     CNetImg/CNetImg.cpp \
     CNetImg/csocket.cpp \
     CSaveImg/CSaveImg.cpp \
-    CMission/CLenet/CLenet.cpp
+    CMission/CLenet/CLenet.cpp \
+    CMission/CLogisticFnc/CLogisticFnc.cpp
 
 FORMS += \
     front_camera_detection.ui
@@ -60,8 +61,8 @@ HEADERS += \
     CNetImg/CNetImg.h \
     CNetImg/csocket.h \
     CSaveImg/CSaveImg.h \
-    CMission/CLenet/CLenet.hpp
+    CMission/CLenet/CLenet.hpp \
+    CMission/CLogisticFnc/CLogisticFnc.h
 
 DISTFILES +=
-
 
